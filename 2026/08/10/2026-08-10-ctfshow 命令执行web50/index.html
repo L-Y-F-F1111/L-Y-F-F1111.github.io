@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ctfshow 命令执行web50 | l-y-fのblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目来源：ctfshow 命令执行web50题目链接(9c8c9aee-bc98-4809-b7e8-400c9e73cb86.challenge.ctf.show)题目描述：解题思路：启动靶机\x09 是十六进制表示法，代表ASCII码为09的字符 ASCII 09&#x3D;Tab\x26 是十六进制表示法，代表ASCII码为26的字符 ASCII 26&#x3D;&amp; 正则过滤绕过了分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow 命令执行web50">
+<meta property="og:url" content="https://l-y-f-f1111.github.io/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/index.html">
+<meta property="og:site_name" content="l-y-fのblog">
+<meta property="og:description" content="题目来源：ctfshow 命令执行web50题目链接(9c8c9aee-bc98-4809-b7e8-400c9e73cb86.challenge.ctf.show)题目描述：解题思路：启动靶机\x09 是十六进制表示法，代表ASCII码为09的字符 ASCII 09&#x3D;Tab\x26 是十六进制表示法，代表ASCII码为26的字符 ASCII 26&#x3D;&amp; 正则过滤绕过了分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260809192354.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260809193824.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260809194353.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260809200805.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260809203612.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260809201031.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810164539.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810165026.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810173328.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810180003.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810165115.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810165205.png">
+<meta property="article:published_time" content="2026-08-10T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-12T08:46:58.177Z">
+<meta property="article:author" content="l-y-f">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260809192354.png">
+  
+    <link rel="alternate" href="/atom.xml" title="l-y-fのblog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">l-y-fのblog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://l-y-f-f1111.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2026-08-10-ctfshow 命令执行web50" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/" class="article-date">
+  <time class="dt-published" datetime="2026-08-10T00:00:00.000Z" itemprop="datePublished">2026-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ctfshow 命令执行web50
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web50<br>题目链接(<a target="_blank" rel="noopener" href="https://9c8c9aee-bc98-4809-b7e8-400c9e73cb86.challenge.ctf.show/">9c8c9aee-bc98-4809-b7e8-400c9e73cb86.challenge.ctf.show</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260809192354.png"><br><code>\x09</code> 是十六进制表示法，代表ASCII码为09的字符 ASCII 09&#x3D;Tab<br><code>\x26</code> 是十六进制表示法，代表ASCII码为26的字符 ASCII 26&#x3D;<code>&amp;</code> <br>正则过滤绕过了分号 cat flag 空格 所有数字 <code>$</code> <code>*</code> more less head sort tail sed cut awk strings od curl 反引号 <code>%</code> Tab键 <code>&amp;</code><br>绕过了Tab键要想其他方法绕过对空格的过滤<br><code>?c=tac&lt;fla\g.php||</code><br><img src="/images/Pastedimage20260809193824.png"><br>拿到flag</p>
+<p>查看wp时发现另外一种payload:<code>?c=nl&lt;fla\g.php||</code><br>nl是一个Linux&#x2F;Unix系统中的文本处理命令，给文本文件的每一行添加行号，然后输出到标准输出<br><img src="/images/Pastedimage20260809194353.png"><br>得不到flag<br>在Linux&#x2F;Unix中，每个命令执行完毕后都会返回一个退出状态码<br>0&#x3D;命令执行成功  非0(1-255) 命令执行失败或有错误<br>返回1，说明<code>nl</code> 失败 原因可能是文件格式问题 文件中包含特殊字符 <code>nl</code> 无法处理某些情况<br>这里可以看出多数情况下还是使用<code>tac</code>比较稳妥</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web51<br>题目链接(<a target="_blank" rel="noopener" href="https://3b77c9ae-7e09-4158-86b7-3c00cbc44e07.challenge.ctf.show/">3b77c9ae-7e09-4158-86b7-3c00cbc44e07.challenge.ctf.show</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260809200805.png"><br>正则过滤了分号 cat flag 空格 所有数字 <code>$</code> <code>*</code> more less head sort tail sed cut tac awk strings od curl 反引号 <code>%</code> Tab键 <code>&amp;</code><br>这里多过滤了tac<br>同样先尝试一下nl  payload:<code>?c=nl&lt;fla\g.php||</code><br><img src="/images/Pastedimage20260809203612.png"><br>得不到flag<br>用反斜杠绕过<code>?c=ta\c&lt;fla\g.php||</code><br><img src="/images/Pastedimage20260809201031.png"><br>1.正则层面：<code>ta\c</code> 不是 <code>tac</code>，<code>fla\g</code> 不是 <code>flag</code>，绕过了黑名单<br>2.反斜杠转义后，<code>ta\c</code> → <code>tac</code>，<code>fla\g</code> → <code>flag</code><br>3.<code>tac</code> 成功执行，不触发 <code>||</code> 后面的重定向</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 文件包含web78<br>题目链接(<a target="_blank" rel="noopener" href="https://7c57845b-59d2-4bed-b3fa-fc7b6167f33c.challenge.ctf.show/">https://7c57845b-59d2-4bed-b3fa-fc7b6167f33c.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260810164539.png"><br>GET传参赋值给参数<code>file</code>并且没有过滤要求，<code>include()</code> 函数会包含并执行指定的文件<br><strong>注意</strong>：<code>include()</code> 可以包含任何可解析为PHP代码的内容，不仅仅是文件，还包括数据流、远程内容等<br>所以这里可以使用php伪协议<br><code>?file=data://text/plain,&lt;?php system(&#39;ls&#39;);?&gt;</code><br>执行流程如下：<br>1.PHP解析URL，识别出<code>data://</code>协议<br>2.从<code>data://text/plain,</code>后面提取数据：<code>&lt;?php system(&#39;ls&#39;);?&gt;</code><br>3 将这段数据当作PHP代码编译并执行<br>4.<code>system(&#39;ls&#39;)</code> 被调用，列出当前目录文件<br>5 输出结果被返回给浏览器<br><img src="/images/Pastedimage20260810165026.png"><br>发现flag.php</p>
+<p>直接包含该文件尝试一下payload:<code>?file=flag.php</code><br><img src="/images/Pastedimage20260810173328.png"><br>没有响应 猜测是因为文件中没有输出flag的语句<br>（后面证实了文件只定义了变量 <code>$flag</code>，但没有输出它）</p>
+<p>payload:<code>?file=data://text/plain,&lt;?php system(&#39;cat flag.php&#39;); ?&gt;</code><br><img src="/images/Pastedimage20260810180003.png"><br>得不到flag<br>原因是读取PHP文件时，不要直接输出原始内容，因为 <code>&lt;?php</code> 标签可能被二次解析导致白屏。必须使用 Base64 或其他编码方式</p>
+<p>所以改为使用<code>php://filter</code>协议+base64 PHP读取源码且无需执行<br>payload:<code>?file=php://filter/read=convert.base64-encode/resource=flag.php</code><br>执行流程如下：<br>1.PHP解析URL，识别出 php:&#x2F;&#x2F;filter 协议<br>2.解析过滤器参数：read&#x3D;convert.base64-encode 表示读取时应用base64编码过滤器，resource&#x3D;flag.php 指定要操作的目标文件<br>3 php:&#x2F;&#x2F;filter 协议打开 resource 参数指定的文件 flag.php<br>4.读取 flag.php 文件的原始内容<br>5.将读取到的原始内容传递给 convert.base64-encode 过滤器<br>6 过滤器对内容进行base64编码处理，将 PHP 代码转换为纯文本字符串<br>7.php:&#x2F;&#x2F;filter 将编码后的内容返回给 include() 函数<br>8 include() 接收到的是 base64 编码的纯文本字符串，不是有效的 PHP 代码，所以不会执行其中的语句<br>9.include() 直接将编码后的字符串输出到响应体<br>10.浏览器收到并显示 base64 编码字符串<br><img src="/images/Pastedimage20260810165115.png"><br>base64解码<br><img src="/images/Pastedimage20260810165205.png"><br>得到flag</p>
+<p>两个伪协议的区别<br><code>data://</code>&#x3D;自带数据的”执行型”协议（注入代码并执行）例如这个题中的查看文件目录<br>结构：<code>data://&lt;MIME类型&gt;,&lt;原始数据内容&gt;</code><br><code>php://filter=</code>处理文件的”读取型”协议（读取并转换内容）例如这个题中的读取文件内容<br>结构：<code>php://filter/[操作类型]=[过滤器名称]/resource=[目标文件]</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/" data-id="cmspupgt500081cuyd9roe2gj" data-title="ctfshow 命令执行web50" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          ctfshow 命令执行web52
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">ctfshow 命令执行web47</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/08/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/">ctfshow 命令执行web44</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 l-y-f<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ctfshow 命令执行web38 | l-y-fのblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目来源：ctfshow 命令执行web38题目链接(https:&#x2F;&#x2F;a37296a5-4457-4656-ac82-046e81b6b0ba.challenge.ctf.show&#x2F;)题目描述：解题思路：启动靶机正则过滤了flag、php、file不区分大小写 同样是include include读取指定文件的内容，如果内容里有PHP代码标记就执行代码和上一题一样用php伪协议以及base64解码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow 命令执行web38">
+<meta property="og:url" content="https://l-y-f-f1111.github.io/2026/08/05/2026-08-05-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb38/index.html">
+<meta property="og:site_name" content="l-y-fのblog">
+<meta property="og:description" content="题目来源：ctfshow 命令执行web38题目链接(https:&#x2F;&#x2F;a37296a5-4457-4656-ac82-046e81b6b0ba.challenge.ctf.show&#x2F;)题目描述：解题思路：启动靶机正则过滤了flag、php、file不区分大小写 同样是include include读取指定文件的内容，如果内容里有PHP代码标记就执行代码和上一题一样用php伪协议以及base64解码">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260804202327.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260804202729.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260804202447.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260804203827.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260804205604.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260805101227.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260805102212.png">
+<meta property="article:published_time" content="2026-08-05T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-12T08:46:58.175Z">
+<meta property="article:author" content="l-y-f">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260804202327.png">
+  
+    <link rel="alternate" href="/atom.xml" title="l-y-fのblog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">l-y-fのblog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://l-y-f-f1111.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2026-08-05-ctfshow 命令执行web38" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/05/2026-08-05-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb38/" class="article-date">
+  <time class="dt-published" datetime="2026-08-05T00:00:00.000Z" itemprop="datePublished">2026-08-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ctfshow 命令执行web38
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web38<br>题目链接(<a target="_blank" rel="noopener" href="https://a37296a5-4457-4656-ac82-046e81b6b0ba.challenge.ctf.show/">https://a37296a5-4457-4656-ac82-046e81b6b0ba.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260804202327.png"><br>正则过滤了flag、php、file不区分大小写 同样是include include读取指定文件的内容，如果内容里有PHP代码标记就执行代码<br>和上一题一样用php伪协议以及base64解码<br>payload:<code>/?c=data://text/plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=</code><br><img src="/images/Pastedimage20260804202729.png"><br>拿到flag</p>
+<p>查看wp发现还有另外一种解法<br>payload:<code>?c=data://text/plain,&lt;?=system(&quot;tac fla*&quot;)?&gt;</code><br><code>&lt;?=</code> 是PHP的短输出标签，等于 <code>&lt;?php echo</code> 绕过了对php的过滤<br>在系统命令中，<code>*</code> 是通配符，代表任意字符串  绕过了对flag的过滤<br>通过data伪协议把PHP代码写入到include的参数中，让include执行这段代码<br>通过system函数执行系统命令 <code>tac fla*</code><br>最后拿到flag<br><img src="/images/Pastedimage20260804202447.png"></p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web39<br>题目链接(<a target="_blank" rel="noopener" href="https://b1013001-c123-4102-a44c-cfde034263a5.challenge.ctf.show/">b1013001-c123-4102-a44c-cfde034263a5.challenge.ctf.show</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260804203827.png"><br>传值给c，include包含对应的文件并加上.php后缀 同时通过正则检测c参数里有没有”flag”字符串 不区分大小写<br><code>?c=data://text/plain,&lt;?=system(&quot;tac fla*&quot;)?&gt;</code><br><img src="/images/Pastedimage20260804205604.png"><br>拿到flag<br>解析：传的是 <code>?c=data://text/plain,&lt;?=system(&quot;tac fla*&quot;)?&gt;</code><br>include接收到的实际字符串是<code> data://text/plain,&lt;?=system(&quot;tac fla*&quot;)?&gt;.php</code><br>include看到这个字符串以data:&#x2F;&#x2F;开头，就会调用data协议处理器。data协议处理器会从字符串开头开始解析，它会识别出<code>data://text/plain,</code>这个部分，然后把逗号后面的内容提取出来作为数据内容。数据内容后面跟着的 .php，它会被当作数据内容的一部分，而不是作为文件名后缀。<br><strong>重点</strong>:.php 在 ?&gt; 结束标签的后面，它不在PHP代码块内，会被当作普通文本输出。虽然会有多余的 .php 输出，但不影响system命令的执行，因为 <code>system(&quot;tac fla*&quot;)</code> 这部分代码是完整的，已经执行了</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 命令执行web40<br>题目链接(<a target="_blank" rel="noopener" href="https://997c5646-694b-4663-a355-7c785865c4b7.challenge.ctf.show/">https://997c5646-694b-4663-a355-7c785865c4b7.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260805101227.png"><br>正则过滤了所有数字 <code>0-9</code> 大部分特殊符号：<code>~`@#$%^&amp;*()-=+&#123;&#125;[]:&#39;&#39;&quot; ,&lt;.&gt;/?</code> 反斜杠 <code>\</code> 和中文括号 <code>（）</code><br><strong>关键点</strong>：正则只检查 <code>$_GET[&#39;c&#39;]</code>，不检查其他参数，所以引入<code>cmd</code> 参数携带恶意代码</p>
+<p><code>?cmd=system(&quot;tac flag.php&quot;);&amp;c=eval(pos(pos(get_defined_vars())));</code></p>
+<p><code>c=eval(pos(pos(get_defined_vars())));</code><br>第一层<code>get_defined_vars()</code>获取当前作用域所有已定义变量的数组<br>       返回的数组保持变量定义的顺序，所以先注册的变量排在前面 <code>_GET</code> 最先注册，排在第一个<br>第二层<code>os(get_defined_vars())</code>返回数组的当前元素（默认是第一个元素）<br>第三层<code>pos(pos(get_defined_vars()))</code>获取第一个数组的第一个元素<br>第四层<code>eval(pos(pos(get_defined_vars())))</code>将获取到的字符串作为PHP代码执行</p>
+<p>总体执行过程<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$_GET = [</span><br><span class="line">    &#x27;cmd&#x27; =&gt; &#x27;system(&quot;tac flag.php&quot;);&#x27;,</span><br><span class="line">    &#x27;c&#x27; =&gt; &#x27;eval(pos(pos(get_defined_vars())));&#x27;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>2.外层 <code>eval()</code> 启动执行链<br>3.<code>get_defined_vars()</code> 获取所有变量<br>4.第一次 返回数组第一个元素 <code>pos()</code> 取 <code>$_GET</code><br>5.第二次 返回第一个元素 <code>pos()</code> 取 <code>$_GET[&#39;cmd&#39;]</code><br>6.内层 <code>eval()</code> 执行恶意代码 <code>eval(&#39;system(&quot;tac flag.php&quot;);&#39;);</code><br>7.解析字符串为PHP代码，<code>system()</code> 调用操作系统Shell 执行系统命令<br>8.读取 <code>flag.php</code><br><strong>注意</strong>：第4步：第一次 pos()操作对象是<code>get_defined_vars()</code> 的返回值<br>      第5步：第二次 pos()操作对象是第一次 <code>pos()</code> 的返回值<br><img src="/images/Pastedimage20260805102212.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/05/2026-08-05-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb38/" data-id="cmspupgt100011cuy64r0ew1l" data-title="ctfshow 命令执行web38" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/08/06/2026-08-06-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb42/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          ctfshow 命令执行web42
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">ctfshow 命令执行web33</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/08/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/">ctfshow 命令执行web44</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 l-y-f<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

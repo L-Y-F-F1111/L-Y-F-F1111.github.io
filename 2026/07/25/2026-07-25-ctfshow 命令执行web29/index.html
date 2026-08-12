@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ctfshow 命令执行web29 | l-y-fのblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目来源：ctfshow 命令执行web29题目链接()题目描述：解题思路：启动靶机题目重点是通过GET传参传入一个参数c 如果c不是flag(因为i 即不区分大小写) 即可执行参数ceval($c);把字符串当作 PHP 代码来执行 所以给c传参时要用到php内置函数 最简单的用system即可 先查看文件目录&#x2F;?c&#x3D;system(&quot;ls&quot;);看看system函数是否可以被正">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow 命令执行web29">
+<meta property="og:url" content="https://l-y-f-f1111.github.io/2026/07/25/2026-07-25-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb29/index.html">
+<meta property="og:site_name" content="l-y-fのblog">
+<meta property="og:description" content="题目来源：ctfshow 命令执行web29题目链接()题目描述：解题思路：启动靶机题目重点是通过GET传参传入一个参数c 如果c不是flag(因为i 即不区分大小写) 即可执行参数ceval($c);把字符串当作 PHP 代码来执行 所以给c传参时要用到php内置函数 最简单的用system即可 先查看文件目录&#x2F;?c&#x3D;system(&quot;ls&quot;);看看system函数是否可以被正">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725084332.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725083845.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725085703.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725085755.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725090919.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725091411.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725091950.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725092620.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725093602.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725093242.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725094147.png">
+<meta property="article:published_time" content="2026-07-25T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-12T08:46:58.173Z">
+<meta property="article:author" content="l-y-f">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260725084332.png">
+  
+    <link rel="alternate" href="/atom.xml" title="l-y-fのblog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">l-y-fのblog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://l-y-f-f1111.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2026-07-25-ctfshow 命令执行web29" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/07/25/2026-07-25-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb29/" class="article-date">
+  <time class="dt-published" datetime="2026-07-25T00:00:00.000Z" itemprop="datePublished">2026-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ctfshow 命令执行web29
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web29<br>题目链接()<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260725084332.png"><br>题目重点是通过GET传参传入一个参数c 如果c不是flag(因为i 即不区分大小写) 即可执行参数c<br><code>eval($c);</code>把字符串当作 PHP 代码来执行 所以给c传参时要用到php内置函数 最简单的用system即可 先查看文件目录<code>/?c=system(&quot;ls&quot;);</code>看看system函数是否可以被正常执行<br><strong>注意：这里最后要加<code>;</code> 不然命令无法被正常执行</strong><br><img src="/images/Pastedimage20260725083845.png"><br>得到文件名 说明system函数可以用 下一步要想办法绕过题目通过正则匹配对flag(因为i 不区分大小写）的过滤 直接用通配符绕过<br>通配符绕过原理：<br>1.<code>preg_match()</code> 检查的是 字符串本身 不会去执行它<br>2.系统 Shell接收到这个命令后：扫描当前目录 找到匹配 <code>fla*</code> 的文件<br>所以先尝试<code>/?c=system(&quot;cat fla*&quot;);</code><br><img src="/images/Pastedimage20260725085703.png"><br>猜测是cat被绕过 换成tac试试<br><img src="/images/Pastedimage20260725085755.png"><br>拿到flag</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web30<br>题目链接(<a target="_blank" rel="noopener" href="https://e99e821d-ed77-4aa6-9272-277876df945c.challenge.ctf.show/">e99e821d-ed77-4aa6-9272-277876df945c.challenge.ctf.show</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260725090919.png"><br>这个题目同样要求GET传参传入参数c 但是正字匹配过滤flag的同时过滤了system和php(不区分大小写)<br>system()用passthru()代替<br>同样先用ls命令测试一下passthru()函数是否可用<br><code>/?c=passthru(&quot;ls&quot;);</code><br><img src="/images/Pastedimage20260725091411.png"><br>&#x2F;?c&#x3D;passthru(“tac fla*”);<br><img src="/images/Pastedimage20260725091950.png"><br>拿到flag<br>看了一下wp 发现还有其他代替system的方法 直接<code>echo&#39;&#39;;</code><br>原理：反引号 <code>`</code> 是 PHP 的执行运算 <code>/?c=echo tac fla*</code>;<code>eval(&quot;echo</code>tac fla*&#96;;”);直接执行命令<br><img src="/images/Pastedimage20260725092620.png"></p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 命令执行web31<br>题目链接(<a target="_blank" rel="noopener" href="https://b788040e-8b39-42d4-a730-f4d3c0101f5c.challenge.ctf.show/">https://b788040e-8b39-42d4-a730-f4d3c0101f5c.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260725093602.png"><br>这个题目还是要求GET传参传入参数c 但是正字匹配过滤flag的同时过滤了system php cat sort shell(不区分大小写) 以及.空格 单引号<br>所以echo’’;不可以用<br>对空格进行url编码<br><code>/?c=passthru(&quot;tac fla*&quot;);</code><br><img src="/images/Pastedimage20260725093242.png"><br>无法绕过 原因<code> </code> 解码后就是空格字符 空格被过滤了 所以 <code> </code> 不行<br>换一个思路 用Tab键绕过 url编码为%09<br><code>/?c=passthru(&quot;tac%09fla*&quot;);</code><br><img src="/images/Pastedimage20260725094147.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/07/25/2026-07-25-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb29/" data-id="cmspupgsz00001cuy59n3bkx9" data-title="ctfshow 命令执行web29" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/07/26/2026-07-26-Untitled/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Untitled
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/07/24/2026-07-24-buuctf%20%20%5BVNCTF2023%5D%E8%B1%A1%E6%A3%8B%E7%8E%8B%E5%AD%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">buuctf  [VNCTF2023]象棋王子</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/08/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/">ctfshow 命令执行web44</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 l-y-f<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

