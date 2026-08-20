@@ -71,6 +71,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2026-08-20-ctfshow 命令执行web71" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/20/2026-08-20-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb71/" class="article-date">
+  <time class="dt-published" datetime="2026-08-20T00:00:00.000Z" itemprop="datePublished">2026-08-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/20/2026-08-20-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb71/">ctfshow 命令执行web71</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="web1"><a href="#web1" class="headerlink" title="web1"></a>web1</h1><p>题目来源：ctfshow 命令执行web71<br>题目链接(<a target="_blank" rel="noopener" href="https://d1861ff1-df3f-4df8-af5f-b1d1dbde1b0b.challenge.ctf.show/">https://d1861ff1-df3f-4df8-af5f-b1d1dbde1b0b.challenge.ctf.show/</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260820180721.png"><br>禁用了PHP里改配置和显示代码的三个函数（error_reporting、ini_set、highlight_file）<br>下载index.php文件 查看<br><img src="/images/Pastedimage20260820180857.png"></p>
+<p><strong><code>ob_get_contents()</code> 是 PHP 的内置函数，作用就是获取当前输出缓冲区里的所有内容，并以字符串形式返回</strong><br><strong><code>ob_end_clean()</code> 是 PHP 内置的输出控制函数，属于 Output Control 函数族,清空（丢弃）当前输出缓冲区的内容，并关闭输出缓冲机制</strong><br>POST传入参数<code>c</code> 把<code>c</code>的值当作PHP代码直接执行（<code>eval($c)</code>），但执行结果会被截获并把它里面的所有字母数字都替换成问号再输出<br>整个流程如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1. include(&#x27;/flag.txt&#x27;) </span><br><span class="line">   → 文件内容进入输出缓冲区（原始flag：flag&#123;abc123&#125;）</span><br><span class="line">2. ob_get_contents() </span><br><span class="line">   → 从缓冲区复制内容到 $s（$s = &quot;flag&#123;abc123&#125;&quot;）</span><br><span class="line">3. ob_end_clean() </span><br><span class="line">   → 清空并关闭缓冲区（原始flag被销毁）</span><br><span class="line">4. preg_replace(&quot;/[0-9]|[a-z]/i&quot;,&quot;?&quot;,$s)</span><br><span class="line">   → 把 $s 里的字母数字替换成 ?</span><br><span class="line">   → 输出 &quot;????&#123;???123&#125;&quot;  看不到明文</span><br></pre></td></tr></table></figure>
+<p>解决方法：文件内容进入输出缓冲区后强制把缓冲区内容立即发送到浏览器<br><strong><code>ob_flush()</code>是 PHP 内置的输出控制函数，作用是强制将当前输出缓冲区中的内容立即发送到浏览器（或Web服务器），同时保留缓冲区继续可用</strong><br>payload:<code>c=include(&#39;/flag.txt&#39;);ob_flush();</code><br>注意加分号，因为在php语句中，要以分号结束语句<br>这是两条PHP语句，用分号 <code>;</code> 分隔，按顺序执行：<br>1.第一条语句：<code>include(&#39;/flag.txt&#39;)</code> 读取文件到缓冲区<br>2.第二条语句：<code>ob_flush()</code>  强制发送缓冲区内容<br><img src="/images/Pastedimage20260820182522.png"><br>得到flag</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web73<br>题目链接(<a target="_blank" rel="noopener" href="https://27969079-1323-481f-a2c4-df63a3fb24ba.challenge.ctf.show/">27969079-1323-481f-a2c4-df63a3fb24ba.challenge.ctf.show</a>)<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260820183757.png"><br>同样禁用了PHP里改配置和显示代码的三个函数（error_reporting、ini_set、highlight_file）<br>POST传入参数<code>c=var_export(scandir(&#39;/&#39;));ob_flush();</code><br>用上一题的payload<br><img src="/images/Pastedimage20260820190533.png"><br>发现没有这个文件<br>读取根目录看看<code>var_export(scandir(&#39;/&#39;));</code> 扫描根目录，然后把扫描结果以合法的 PHP 数组格式打印到页面上<br><img src="/images/Pastedimage20260820185910.png"><br>发现flagc.txt文件<br>读取该文件 用<code>include()</code>函数 POST传入参数&#96;c&#x3D;include(“&#x2F;flagc.txt”);ob_flush(); &#96;&#96;<br><img src="/images/Pastedimage20260820190153.png"><br>得到flag</p>
+<p>另外一种做法<br><img src="/images/Pastedimage20260820190939.png"><br><code>include</code> 执行完，文件内容被输出 <code>exit()</code> 立即终止脚本，阻止 index.php 后续代码继续执行<br>区别：<code>exit()</code> 是读完文件直接终止整个脚本，只输出flag，干净利落；<code>ob_flush()</code> 只是手动把缓冲区内容刷出去，但脚本继续往下跑</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://l-y-f-f1111.github.io/2026/08/20/2026-08-20-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb71/" data-id="cmt1flvrk00001ouy2xia5xho" data-title="ctfshow 命令执行web71" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2026-08-16-ctfshow 命令执行web69" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2026/08/16/2026-08-16-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb69/" class="article-date">
@@ -508,48 +552,6 @@
 
 
   
-    <article id="post-2026-08-06-ctfshow 命令执行web42" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2026/08/06/2026-08-06-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb42/" class="article-date">
-  <time class="dt-published" datetime="2026-08-06T00:00:00.000Z" itemprop="datePublished">2026-08-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2026/08/06/2026-08-06-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb42/">ctfshow 命令执行web42</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>题目来源：ctfshow 命令执行web42<br>题目链接(<a target="_blank" rel="noopener" href="https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/">https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260805204058.png"><br>GET传参传入参数c<br>通过<code>system()</code>函数执行系统命令<br>重定向符号 <code>&gt;</code> 所有输出被重定向到<code>/dev/null</code>（<code>&gt;/dev/null 2&gt;&amp;1</code>）<br><code>/dev/null</code> 是Linux&#x2F;Unix系统中的<strong>特殊设备文件</strong>，常被称为”<strong>黑洞</strong>“或”<strong>空设备</strong>“<br>没有正则过滤 但是输出被完全屏蔽了<br>payload:<code>?c=tac flag.php;</code><br>即命令为：<code>system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</code><br>当传入 <code>c=tac flag.php;</code> 时，实际执行的命令是<code>tac flag.php; &gt;/dev/null 2&gt;&amp;1</code><br>分号 <code>;</code> 在shell中表示命令分隔符 它让命令变成两条独立的命令<br>第一条命令<code>tac flag.php</code><br>第二条命令<code>&gt; /dev/null 2&gt;&amp;1</code>空命令+重定向<br><strong>重点</strong>：<code>&gt;/dev/null 2&gt;&amp;1</code> 只对紧挨着它的命令或最后一条命令生效<br>所以<code>tac flag.php</code> 的输出不会被重定向 只有 <code>&gt;/dev/null 2&gt;&amp;1</code> 这条空命令被重定向<br><img src="/images/Pastedimage20260805204338.png"></p>
-<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>题目来源：ctfshow 命令执行web43<br>题目链接(<a target="_blank" rel="noopener" href="https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/">https://0afa236f-cafc-4f6a-9a06-49a1c6b001b1.challenge.ctf.show/</a>)<br>题目描述：<br>解题思路：<br>启动靶机<br><img src="/images/Pastedimage20260805212836.png"><br>正则过滤了分号和cat 并且输出仍然被重定向到 <code>/dev/null</code><br>找其他命令分隔符</p>
-<h3 id="法一"><a href="#法一" class="headerlink" title="法一"></a>法一</h3><p>用分隔符<code>&amp;&amp;</code><br>但是需要进行<strong>URL编码</strong> 因为在URL中<code>&amp;</code>是参数分隔符<br><code>?c=tac flag.php%26%26 </code><br>拼接后的命令为<code>?c=tac flag.php &amp;&amp; &gt;/dev/null 2&gt;&amp;1</code><br>1.URL解码后得到 <code>tac flag.php&amp;&amp;</code><br>2.<code>&amp;&amp;</code> 是shell命令分隔符<br>3.将重定向隔离到单独的命令<br>4.<code>tac flag.php</code> 的输出不受重定向影响<br><img src="/images/Pastedimage20260805211413.png"><br>去掉末尾空格<code> </code>同样可用<br><img src="/images/Pastedimage20260805211709.png"><br>得到flag</p>
-<h3 id="法二"><a href="#法二" class="headerlink" title="法二"></a>法二</h3><p>用逻辑或<code>||</code><br><code>?c=tac flag.php||</code><br>在功能上起到了分隔命令的作用<br>拼接后的命令为<code>tac flag.php|| &gt;/dev/null 2&gt;&amp;1</code><br>Shell解析为两个命令：<br>命令1:<code>tac flag.php</code><br>命令2: <code>&gt;/dev/null 2&gt;&amp;1</code>（空命令+重定向）<br>命令1成功 则不执行命令2<br><img src="/images/Pastedimage20260805212629.png">得到flag</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://l-y-f-f1111.github.io/2026/08/06/2026-08-06-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb42/" data-id="cmsvpzk4k00055wuy7y6magss" data-title="ctfshow 命令执行web42" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -586,6 +588,10 @@
       <ul>
         
           <li>
+            <a href="/2026/08/20/2026-08-20-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb71/">ctfshow 命令执行web71</a>
+          </li>
+        
+          <li>
             <a href="/2026/08/16/2026-08-16-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb69/">ctfshow 命令执行web69</a>
           </li>
         
@@ -599,10 +605,6 @@
         
           <li>
             <a href="/2026/08/13/2026-08-13-ctfshow%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb54/">ctfshow 命令执行web54</a>
-          </li>
-        
-          <li>
-            <a href="/2026/08/12/hello-world/">Hello World</a>
           </li>
         
       </ul>
